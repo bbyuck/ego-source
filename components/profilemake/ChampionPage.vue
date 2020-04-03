@@ -10,12 +10,12 @@
 
     <div class="search_area input_area">
 		  <span class="input input--minoru">
-			  <input class="input__field input__field--minoru" type="text" id="ingameIdInput" v-on:input="typing" ref="inputBox" placeholder="챔피언 검색">
+			  <input class="input__field input__field--minoru" type="text" id="ingameIdInput" v-on:keyup.enter="searchBarBtnAction" v-on:input="typing" ref="inputBox" placeholder="챔피언 검색">
 		  </span>
-      <span class="search_bar_btn_container" v-if="!searched" v-on:click="searchBarBtnAction">
+      <span class="search_bar_btn_container" v-if="championInput === ''" v-on:click="searchBarBtnAction">
         <i class="fas fa-search search_bar_btn"></i>
       </span>
-      <span class="search_bar_btn_container" v-if="searched" v-on:click="deleteSearchInput">
+      <span class="search_bar_btn_container" v-if="championInput !== ''" v-on:click="deleteSearchInput">
         <i class="fas fa-backspace search_bar_btn"></i>
       </span>
     </div>
@@ -260,8 +260,21 @@ export default {
     searchBarBtnAction: function () {
       if (this.championInput === '') {
         this.$refs.inputBox.focus();
-      } else {
+        if(this.searched) {
+          this.searched = false;
+          this.searchChampionArr = [];
+        }
+      } 
+      else if(this.searched === false) {
         this.searched = true;
+        for (let i = 0; i < this.championArr.length; i++) {
+          if (this.championArr[i].koreanName.includes(this.championInput)) {
+            this.searchChampionArr.push(i);
+          }
+        }
+        this.championPageIndex = 0;
+      } else if(this.searched === true && this.searchChampionArr.length !== 0) {
+        this.searchChampionArr = [];
         for (let i = 0; i < this.championArr.length; i++) {
           if (this.championArr[i].koreanName.includes(this.championInput)) {
             this.searchChampionArr.push(i);

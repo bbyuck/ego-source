@@ -27,6 +27,7 @@ export default {
   computed: {
     myInfo: function () {
       let preset = JSON.parse(localStorage.getItem("preset1"));
+      console.log(preset);
       if(preset !== null) {
         return preset;
       } else {

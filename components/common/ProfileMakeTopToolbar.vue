@@ -40,6 +40,9 @@ export default {
         break;
       }
       return name;
+    },
+    tierImgUrlRoot: function () {
+      return this.$store.state.tierImgUrlRoot
     }
   }
 }
