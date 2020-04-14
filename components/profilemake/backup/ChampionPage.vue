@@ -524,7 +524,6 @@ ul {
   display: inline-block;
   margin-right: 4%;
   border: solid 1px #461f41;
-
 }
 
 /*

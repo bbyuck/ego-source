@@ -1,12 +1,14 @@
 <template id="main">
   <v-ons-page>
     <transition name="mode-change" mode="out-in">
+      <div v-if="appMode === -1">
+        <profile-card></profile-card> <!--테스트코드-->
+      </div>
       <div v-if="appMode === 0">
         <start-view v-on:start="nextMode"></start-view>
       </div>
 
       <div v-if="appMode === 2">
-        <profile-make-top-toolbar ></profile-make-top-toolbar>
         <profile-make-view v-on:profile_complete="nextMode"></profile-make-view>
       </div>
 
@@ -26,47 +28,11 @@
 <script>
 import StartView from './components/start/StartView.vue'
 import TopToolbar from './components/common/TopToolbar.vue'
-import ProfileMakeTopToolbar from './components/common/ProfileMakeTopToolbar.vue'
 import ProfileMakeView from './components/profilemake/ProfileMakeView.vue'
 import MessengerView from './components/tabpages/MessengerView.vue'
 import SettingView from './components/tabpages/SettingView.vue'
-
 import MainView from './components/main/MainView.vue'
-
-/*
- *  input box 관련 js
- */
-
-// (function() {
-// // trim polyfill : https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/Trim
-// 	if (!String.prototype.trim) {
-// 		(function() {
-// 			// Make sure we trim BOM and NBSP
-// 			var rtrim = /^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g;
-// 			String.prototype.trim = function() {
-// 				return this.replace(rtrim, '');
-// 			};
-// 		})();
-// 	}
-// 		[].slice.call( document.querySelectorAll( 'input.input__field' ) ).forEach( function( inputEl ) {
-// 		// in case the input is already filled..
-// 		if( inputEl.value.trim() !== '' ) {
-// 			classie.add( inputEl.parentNode, 'input--filled' );
-// 		}
-// 			// events:
-// 		inputEl.addEventListener( 'focus', onInputFocus );
-// 		inputEl.addEventListener( 'blur', onInputBlur );
-// 	} );
-// 		function onInputFocus( ev ) {
-// 		classie.add( ev.target.parentNode, 'input--filled' );
-// 	}
-// 		function onInputBlur( ev ) {
-// 		if( ev.target.value.trim() === '' ) {
-// 			classie.remove( ev.target.parentNode, 'input--filled' );
-// 		}
-// 	}
-// })();
-
+import ProfileCard from './components/common/ProfileCard.vue' // 테스트코드
 
 export default {
   data: function () {
@@ -116,8 +82,8 @@ export default {
     MessengerView,
     SettingView,
     TopToolbar,
-    ProfileMakeTopToolbar,
-    MainView
+    MainView,
+    ProfileCard // 테스트코드
   } ,
   created: function () {
     let preset = JSON.parse(localStorage.getItem("preset1"));
@@ -155,7 +121,7 @@ export default {
  * fade
  */
 .fade-enter-active, .fade-leave-active {
-  transition: opacity .3s;
+  transition: opacity .2s;
 }
 .fade-enter, .fade-leave-to {
   opacity: 0;

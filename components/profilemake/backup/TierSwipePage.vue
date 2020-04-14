@@ -8,7 +8,6 @@
           </div>
         </slide>
       </carousel-3d>
-
     </div>
   
     <div class="tier_text_area">
@@ -123,7 +122,7 @@ export default {
 /*
 * 티어 이미지 carousel 관련 css
  */
-.carousel-3d-slide {
+.carousel-3d-slider > * {
   background: 0;
 }
 .carousel-3d-slide.current {
@@ -133,7 +132,7 @@ export default {
   background: 0;
 }
 .carousel-3d-slide.left-1 {
-    background: 0;
+  background: 0;
 }
 
 .tier_img {
