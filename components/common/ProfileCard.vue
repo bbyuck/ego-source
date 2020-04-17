@@ -1,17 +1,23 @@
 <template>
   <div class="profile_card">  
     <div class="header">
-      {{ myInfo.myIngameId }}
-    </div>
-    <div class="under_header">
-      <div class="under_header_left_high" v-bind:class="myInfo.myTier" v-if="myInfo.isHigh">
-        {{ myInfo.myTier }} <br> {{myInfo.myLp + ' LP'}}
+      <div class="header_left">
+        <div class="tier_text_tag" v-if="myInfo.isHigh" v-bind:class="myInfo.myTier">
+          {{ myTierTag }} <br> {{ myInfo.myLp }} LP
+        </div>
+        <div class="tier_text_tag" v-if="!myInfo.isHigh" v-bind:class="myInfo.myTier">
+          {{ myTierTag }}{{ myInfo.myTierLev }}
+        </div>
       </div>
-      <div class="under_header_left" v-bind:class="myInfo.myTier" v-if="!myInfo.isHigh">
-        {{ myInfo.myTier }} {{myInfo.myTierLev}}
+      <div class="ingame_id" v-if="myInfo.myIngameId !== ''">
+        {{ myInfo.myIngameId }}
+      </div>
+      <div class="empty_ingame_id" v-if="myInfo.myIngameId === ''" v-on:click="goToIngameIdPage">
+        <i class="fas fa-plus"></i>
       </div>
     </div>
-
+   
+    <div class="content_top" v-bind:class="{content_top_high : myInfo.isHigh}">
       <div v-bind:class="{profile_card_tier_high_area : myInfo.isHigh, profile_card_tier_area : !myInfo.isHigh}">
         <img v-bind:src="tierImgUrlRoot + myInfo.myTier + '.png'" alt="">
       </div>
@@ -19,13 +25,13 @@
         <div class="hexa_top">
           <img v-bind:src="positionImgUrlRoot + top">
         </div>
-        <div class="hexa_jg">
+        <div class="hexa_jg" v-bind:style="{'top': hexaAreaWidth * 0.33 + 'px'}">
           <img v-bind:src="positionImgUrlRoot + jungle">
         </div>
-        <div class="hexa_mid">
+        <div class="hexa_mid" v-bind:style="{'top': hexaAreaWidth * 0.11 + 'px'}">
           <img v-bind:src="positionImgUrlRoot + mid">
         </div>
-        <div class="hexa_ad">
+        <div class="hexa_ad" v-bind:style="{'top': hexaAreaWidth * 0.22 + 'px'}">
           <img v-bind:src="positionImgUrlRoot + ad">
         </div>
         <div class="hexa_sup">
@@ -34,6 +40,43 @@
         <div class="hexa_voice">
         </div>  
       </div>
+    </div>
+
+    <div class="content_mid">
+      
+      <div v-for="(champion, i) in myInfo.myChampions" v-bind:key="champion.koreanName" v-bind:class="{main_champion_row : i === 0, champion_row : i !== 0}">
+        <div class="row_content">
+          
+          <div class="astr_mark" v-if="i === 0">
+            <i class="fas fa-star"></i>
+          </div>
+          
+          <div class="champion_name">
+            <div class="kor">
+              {{ champion.koreanName }}
+            </div>
+            <div class="eng">
+              {{ champion.showEngName }}
+            </div>
+          </div>
+          <div class="champion_thumb_container">
+            <div class="champion_thumb">
+              <img v-bind:src="championImgUrlRoot + champion.engName + '.png'">
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="empty_champion_row" v-for="idx in unselectedChampionCount" v-bind:key="idx" v-on:click="goToChampionPage">
+        <i class="fas fa-plus"></i>
+      </div>
+
+    </div>
+
+    <div class="content_bottom">
+
+    </div>
+
   </div>
 </template>
 
@@ -44,10 +87,19 @@ export default {
   data: function () {
     return {
       tierImgUrlRoot: './src/assets/images/tier/',
-      positionImgUrlRoot: './src/assets/images/position/'
+      positionImgUrlRoot: './src/assets/images/position/',
+      championImgUrlRoot: './src/assets/images/champion/'
     }
   },
   props: ['myInfo'],
+  methods: {
+    goToChampionPage: function () {
+      this.$emit("goToChampion");
+    },
+    goToIngameIdPage: function () {
+      this.$emit("goToIngameId");
+    }
+  },
   computed: {
     top: function () {
       if(this.myInfo.myPosition[0].main) {
@@ -103,6 +155,47 @@ export default {
       else {
         return 'support_off.png';
       }
+    },
+    hexaAreaWidth: function () {
+      return window.innerWidth * 0.8 * 0.55;
+    },
+    unselectedChampionCount: function () {
+      return 3 - this.myInfo.myChampions.length;
+    },
+    myTierTag: function () {
+      let tag = '';
+      switch (this.myInfo.myTier) {
+      case 'Challenger':
+        tag = 'C1';
+        break;
+      case 'GrandMaster':
+        tag = 'GM1';
+        break;
+      case 'Master':
+        tag = 'M1';
+        break;
+      case 'Diamond':
+        tag = 'D';
+        break;
+      case 'Platinum':
+        tag = 'P';
+        break;
+      case 'Gold':
+        tag = 'G';
+        break;
+      case 'Silver':
+        tag = 'S';
+        break;
+      case 'Bronze':
+        tag = 'B';
+        break;
+      case 'Iron':
+        tag = 'I';
+        break;
+      default:
+        break;
+      }
+      return tag;
     }
   }
 }
@@ -127,58 +220,79 @@ export default {
   margin-left: auto;
   margin-right: auto;
   padding-bottom: 10px;
-  text-align: center;
 }
 .header {
   border-bottom: solid 1px #461f41;
   padding-top: 10px;
 }
 
-.under_header_left {
-  float: left;
-  width: 33.3%;
-  height: 20px;
-  font-size: 12px;
-  padding-top: 3px;
-  margin-top: 3px;
-  border-radius: 5px;
+.header_left {
+  display: inline-block;
+  width: 23%;
 }
-.under_header_left_high {
-  float: left;
-  width: 33.3%;
-  height: 30px;
-  font-size: 12px;
-  padding-top: 3px;
-  margin-top: 3px;
-  border-radius: 5px;
+
+.ingame_id {
+  display: inline-block;
+  position: relative;
+  text-align: center;
+  width: 50%;
 }
+
+.empty_ingame_id {
+  color: #0071f1;
+  display: inline-block;
+  position: relative;
+  text-align: center;
+  width: 50%;
+  font-size: 25px;
+}
+
+.tier_text_tag {
+  border-radius: 5px;
+  text-align: center;
+  color: white;
+}
+
 
 .Iron {
   background-color: darkgray;
+  width: 28px;
 }
 .Bronze {
   background-color: chocolate;
+  width: 28px;
 }
 .Silver {
   background-color: silver;
+  width: 28px;
 }
 .Gold {
   background-color: gold;
+  width: 28px;
 }
 .Platinum {
   background-color: aquamarine;
+  width: 28px;
 }
 .Diamond {
   background-color: aqua;
+  width: 28px;
 }
 .Master {
   background-color: purple;
+  font-size: 10px;
+  width: 45px;
 }
 .GrandMaster {
   background-color: red;
+  font-size: 10px;
+  width: 45px;
+
 }
 .Challenger {
   background-color: skyblue;
+  font-size: 10px;
+  width: 45px;
 }
 
 .profile_card_id {
@@ -191,12 +305,19 @@ export default {
 }
 
 
+.content_top {
+  height: 110px;
+}
+
+.content_top_high {
+  margin-top: 10px;
+}
 
 .profile_card_tier_area, .profile_card_tier_high_area {
   width: 30%;
   position: relative;
   display: inline-block;
-  margin-left: 5%;
+  margin-left: 10%;
 }
 .profile_card_tier_area {
   margin-top: 10px;
@@ -209,7 +330,7 @@ export default {
 .hexa_area {
   position: relative;
   display: inline-block;
-  width: 60%;
+  width: 55%;
   height: 100px;
   bottom: 0px;
 }
@@ -246,6 +367,104 @@ export default {
 
 .hexa_sup {
   left: 60%;
+}
+
+
+.astr_mark {
+  width: 20px;
+  padding-left: 10px;
+  background-color: #461f41;
+  display: inline-block;
+  position: relative;
+  top: 23%;
+  color: #f7941d;
+  font-size: 15px;
+}
+.main_champion_row {
+  height: 50px;
+  color: white;
+  border: solid 1px #d7d7d7;
+  background-color: #461f41;
+  font-weight: 800;
+  font-size: 18px;
+}
+
+.main_champion_row > .row_content > .champion_name {
+  margin-top: 7px;
+}
+
+.champion_row {
+  height: 35px;
+  color: white;
+  border: solid 1px #d7d7d7;
+  background-color: #461f41;
+  font-weight: 800;
+  font-size: 15px;
+}
+.row_content {
+  position: relative;
+  height: 100%;
+}
+
+.champion_name {
+  display: inline-block;
+  position: absolute;
+  left: 12%;
+}
+
+
+.eng {
+  color: #c6bcc1;
+  font-size: 10px;
+}
+
+.champion_thumb_container {
+  display: inline-block;
+  position: absolute;
+  right: 5%;
+}
+
+.champion_thumb {
+  width: 50px;
+  height: 50px;
+  overflow: hidden;
+  position: relative;
+}
+
+.champion_thumb > img {
+  position:absolute;
+}
+
+.champion_row > .row_content > .champion_thumb_container > .champion_thumb {
+  width: 50px;
+  height: 35px;
+}
+
+.champion_row > .row_content > .champion_thumb_container > .champion_thumb > img {
+  width: 70px;
+  top: -40%;
+  left: -20%;
+}
+
+.main_champion_row > .row_content > .champion_thumb_container > .champion_thumb > img {
+  width: 80px;
+  top: -30%;
+  left: -30%;
+}
+
+.empty_champion_row {
+  height: 35px;
+  border-top: solid 1px #d7d7d7;
+  border-bottom: solid 1px #d7d7d7;
+  text-align: center;
+  font-size: 25px;
+  color: #0071f1;
+}
+
+.play_style_box_in_profile {
+  width: 80%;
+  height: 80px;
+  box-shadow: 2px 2px 2px 2px #e4e4e4;
 }
 
 </style>

@@ -55,7 +55,7 @@
           </v-ons-row> -->
           <v-ons-row class="lp_bar_container" v-if="isHigh">
             <v-ons-col>
-              <v-ons-range v-model.number="lpInput" class="lp_bar" v-on:change="lpComplete"></v-ons-range>
+              <v-ons-range v-model.number="lpInput" class="lp_bar" v-on:change="lpSet"></v-ons-range>
             </v-ons-col>
           </v-ons-row>
           <!-- <v-ons-row width="40px" style="text-align: center; line-height: 31px;">
@@ -82,6 +82,7 @@ export default {
     return {
       inputId: '',
       tiers: ["Challenger", "GrandMaster", "Master", "Diamond", "Platinum", "Gold", "Silver", "Bronze", "Iron"],
+      myTier: 'Platinum',
       levels: ["I", "II", "III", "IV"],
       selected: false,
       lpInput: 0,
@@ -97,31 +98,32 @@ export default {
         this.$emit('idEmpty');
       }
       else {
-        this.$emit('idOk');
+        this.$emit('idOk', this.inputId);
       }
     },
     tierImgUrl: function (index) {
       return this.$store.state.tierImgRoot + this.tiers[index] + ".png";
     },
     tierChange: function (payload) {
-      this.$store.commit('tierSelect', this.tiers[payload]);
-      if (!this.$store.state.isHigh) {
-        this.$store.commit('setLp', 0);
+      this.$emit('tierSelect', this.tiers[payload]);
+      this.myTier = this.tiers[payload];
+      if (!this.isHigh) {
+        this.$emit('resetLp');
         this.lpInput = 0;
       } else {
-        this.$store.commit('setTierLev', 1);
+        this.$emit('resetTierLev');
         this.levelIndex = 0;
       }
     },
     levelSelected: function(index) {
       this.levelIndex = index;
-      this.$store.commit("setTierLev", index + 1);
+      this.$emit("setTierLev", index + 1);
     },
     /*
      * 천상계 LP는 25점 단위로
      */
-    lpComplete: function (payload) {
-      this.$store.commit("setLp", payload.target.value * 25);
+    lpSet: function (payload) {
+      this.$emit("setLp", payload.target.value * 25);
     },
     tierUp: function () {
       if(this.tierIndex !== 0) {
@@ -154,10 +156,12 @@ export default {
       return window.innerWidth * 2;
     },
     isHigh: function () {
-      return this.$store.state.isHigh;
-    },
-    myTier: function () {
-      return this.$store.state.myTier;
+      if (this.myTier === "Challenger" || this.myTier === "GrandMaster" || this.myTier === "Master") {
+        return true;
+      }
+      else {
+        return false
+      }
     },
     
     myLp: function () {
@@ -184,7 +188,7 @@ export default {
 .tier_area {
   width: 99%;
   height: 300px;
-  box-shadow: 2px 2px 2px 2px gray;
+  box-shadow: 2px 2px 2px 2px #e4e4e4;
   border-radius: 15px;
   position: relative;
 }

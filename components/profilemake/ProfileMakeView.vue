@@ -10,7 +10,14 @@
             소환사 정보
           </div>
           <div class="profile_make_content_long">
-            <profile-make-page1 v-on:idOk="completed[0] = true" v-on:idEmpty="completed[0] = false"></profile-make-page1>
+            <profile-make-page1 v-on:idOk="idSave"
+              v-on:idEmpty="resetId"
+              v-on:tierSelect="tierSelectInView"
+              v-on:setLp="setLpInView"
+              v-on:setTierLev="setTierLevInView"
+              v-on:resetLp="preMyInfo.myLp = 0"
+              v-on:resetTierLev="preMyInfo.myTierLev = 1"
+              ></profile-make-page1>
           </div>
         </v-ons-carousel-item>
         <v-ons-carousel-item class="profile_make_page">
@@ -35,7 +42,10 @@
             </div>
           </div>
           <div class="profile_make_content">
-            <profile-make-page3 v-bind:searchInput="championInput"></profile-make-page3>
+            <profile-make-page3 
+              v-bind:searchInput="championInput"
+              v-on:championUpdate="championUpdateInView"
+              ></profile-make-page3>
           </div>
         </v-ons-carousel-item>
         <v-ons-carousel-item class="profile_make_page">
@@ -62,7 +72,10 @@
             프로필 카드
           </div>
           <div class="profile_card_area">
-            <profile-make-page5 v-bind:myInfo="preMyInfo"></profile-make-page5>
+            <profile-make-page5 v-bind:myInfo="preMyInfo" 
+              v-on:goToIngameIdInView="pageIndex = 0" 
+              v-on:goToChampionInView="pageIndex = 2"
+              ></profile-make-page5>
           </div>
         </v-ons-carousel-item>
       </v-ons-carousel>
@@ -106,11 +119,35 @@ export default {
         ],
         myMainPositionIdx: -1,
         isVoiceOn: true,
-        myChampions: []
+        myChampions: [],
+        myPlayStyles: []
       }
     }
   },
   methods:{
+    idSave: function (payload) {
+      this.preMyInfo.myIngameId = payload;
+      this.completed[0] = true;
+    },
+    resetId: function (){
+      this.preMyInfo.myIngameId = '';
+      this.completed[0] = false;
+    },
+    tierSelectInView: function (payload) {
+      this.preMyInfo.myTier = payload;
+      if (payload === 'Challenger' || payload === 'GrandMaster' || payload === 'Master') {
+        this.preMyInfo.isHigh = true;
+      } 
+      else {
+        this.preMyInfo.isHigh = false;
+      }
+    },
+    setLpInView: function (payload) {
+      this.preMyInfo.myLp = payload;
+    },
+    setTierLevInView: function (payload) {
+      this.preMyInfo.myTierLev = payload;
+    },
     championSearchInput: function(e) {
       this.championInput = e.target.value;
     },
@@ -121,6 +158,12 @@ export default {
       else {
         this.championInput = '';
         this.$refs.championSearch.value = '';
+      }
+    },
+    championUpdateInView: function (payload) {      
+      this.preMyInfo.myChampions = payload;
+      if(this.preMyInfo.myChampions.length === 3) {
+        this.completed[2] = true;
       }
     },
     playstyleSearchInput: function (e) {

@@ -1,6 +1,9 @@
 <template>
   <div class="page_content">
-    <profile-card v-bind:myInfo="myInfo"></profile-card>
+    <profile-card v-bind:myInfo="myInfo" 
+      v-on:goToChampion="goToChampionToView"
+      v-on:goToIngameId="goToIngameIdToView"
+      ></profile-card>
   </div>
 </template>
 
@@ -8,7 +11,15 @@
 import ProfileCard from '../common/ProfileCard.vue'
 
 export default {
-  props: ['myInfo'],  
+  props: ['myInfo'],
+  methods: {
+    goToChampionToView: function () {
+      this.$emit("goToChampionInView");
+    },
+    goToIngameIdToView: function () {
+      this.$emit("goToIngameIdInView");
+    }
+  },
   components: {
     ProfileCard
   }
