@@ -10,7 +10,8 @@
             소환사 정보
           </div>
           <div class="profile_make_content_long">
-            <profile-make-page1 v-on:idOk="idSave"
+            <profile-make-page1 
+              v-on:idOk="idSave"
               v-on:idEmpty="resetId"
               v-on:tierSelect="tierSelectInView"
               v-on:setLp="setLpInView"
@@ -25,7 +26,11 @@
             소환사 정보
           </div>
           <div class="profile_make_content_long">
-
+            <profile-make-page2
+              v-on:micOn="page2MicOn"
+              v-on:micOff="page2MicOff"
+              v-on:positionBtnTouch="page2PositionBtnAction"
+            ></profile-make-page2>
           </div>
         </v-ons-carousel-item>
         <v-ons-carousel-item class="profile_make_page">
@@ -53,18 +58,8 @@
             특징 선택
           </div>
 
-          <div class="input_area">
-            <div class="input_box">
-              <input type="text" class="background_input" placeholder="플레이스타일을 검색해주세요." v-on:input="playstyleSearchInput" ref="playstyleSearch">
-              <div class="search_btn" v-on:click="playstyleSearchBarBtn">
-                <i class="fas fa-search" v-show="playstyleInput === ''"></i>
-                <i class="fas fa-times" v-show="playstyleInput !== ''"></i>
-              </div>
-            </div>
-          </div>
-
-          <div class="profile_make_content">
-
+          <div class="profile_make_content_long">
+            <profile-make-page4></profile-make-page4>
           </div>
         </v-ons-carousel-item>
         <v-ons-carousel-item class="profile_make_page">
@@ -92,9 +87,9 @@
 
 <script>
 import ProfileMakePage1 from './ProfileMakePage1.vue';
-
+import ProfileMakePage2 from './ProfileMakePage2.vue';
 import ProfileMakePage3 from './ProfileMakePage3.vue';
-
+import ProfileMakePage4 from './ProfileMakePage4.vue';
 import ProfileMakePage5 from './ProfileMakePage5.vue';
 
 export default {
@@ -103,7 +98,7 @@ export default {
       pageIndex: 0,
       championInput: '',
       completed: [false, false, false, false, false],
-      playstyleInput: '',
+      selectedPositionCount: 0,
       preMyInfo: {
         myIngameId: '',
         myTier: 'Platinum',
@@ -148,6 +143,63 @@ export default {
     setTierLevInView: function (payload) {
       this.preMyInfo.myTierLev = payload;
     },
+    page2MicOn: function () {
+      this.preMyInfo.isVoiceOn = true;
+    },
+    page2MicOff: function () {
+      this.preMyInfo.isVoiceOn = false;
+    },
+    page2PositionBtnAction: function(payload) {
+      switch(payload){
+      case 'topOn':
+        this.preMyInfo.myPosition[0].selected = true;
+        this.selectedPositionCount += 1;    
+        break;
+      case 'topOff':
+        this.preMyInfo.myPosition[0].selected = false;
+        this.selectedPositionCount -= 1;    
+        break;
+      case 'jgOn':
+        this.preMyInfo.myPosition[1].selected = true;
+        this.selectedPositionCount += 1;    
+        break;
+      case 'jgOff':
+        this.preMyInfo.myPosition[1].selected = false;
+        this.selectedPositionCount -= 1;
+        break;
+      case 'midOn':
+        this.preMyInfo.myPosition[2].selected = true;
+        this.selectedPositionCount += 1;    
+        break;
+      case 'midOff':
+        this.preMyInfo.myPosition[2].selected = false;
+        this.selectedPositionCount -= 1;
+        break;
+      case 'adOn':
+        this.preMyInfo.myPosition[3].selected = true;
+        this.selectedPositionCount += 1;
+        break;
+      case 'adOff':
+        this.preMyInfo.myPosition[3].selected = false;
+        this.selectedPositionCount -= 1;
+        break;
+      case 'supOn':
+        this.preMyInfo.myPosition[4].selected = true;
+        this.selectedPositionCount += 1;
+        break;
+      case 'supOff':
+        this.preMyInfo.myPosition[4].selected = false;
+        this.selectedPositionCount -= 1;
+        break;
+      default:
+        break;
+      }
+      if (this.selectedPositionCount === 0) {
+        this.completed[1] = false;
+      } else {
+        this.completed[1] = true;
+      }
+    },
     championSearchInput: function(e) {
       this.championInput = e.target.value;
     },
@@ -166,22 +218,12 @@ export default {
         this.completed[2] = true;
       }
     },
-    playstyleSearchInput: function (e) {
-      this.playstyleInput = e.target.value;
-    },
-    playstyleSearchBarBtn: function () {
-      if(this.playstyleInput === '') {
-        this.$refs.playstyleSearch.focus();
-      }
-      else {
-        this.playstyleInput = '';
-        this.$refs.playstyleSearch.value = '';
-      }
-    }
   },
   components: {
     ProfileMakePage1,
+    ProfileMakePage2,
     ProfileMakePage3,
+    ProfileMakePage4,
     ProfileMakePage5
   }
 }
@@ -198,7 +240,7 @@ export default {
   font-size: 30px;
   color: #461f41;
   position: absolute;
-  bottom: 20px;
+  bottom: 5px;
   left: 0;
   right: 0;
 }
@@ -208,7 +250,7 @@ export default {
   text-align: center;
   font-size: 30px;
   position: absolute;
-  bottom: 20px;
+  bottom: 5px;
   left: 0;
   right: 0;
 }
@@ -228,6 +270,17 @@ export default {
   position: absolute;
   bottom:0;
   border-radius: 20px 20px 0 0;
+}
+
+.gray_header1 {
+  background-color: lightgray;
+  width: 100%;
+  border-radius: 20px 20px 0 0;
+}
+
+.gray_header2 {
+  background-color: lightgray;
+  width: 100%;
 }
 
 .profile_make_content {
@@ -266,8 +319,6 @@ export default {
   text-align: center;
   box-shadow: 2px 2px 2px 2px black;
   border: solid #461f41 1px;
-  margin-top: 10px;
-  margin-top: 10px;
   margin-left: auto;
   margin-right: auto;
   background-color: #fff;

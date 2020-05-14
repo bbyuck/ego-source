@@ -1,8 +1,8 @@
 <template>
   <div class="page_content">
-    <div class="champion_header1">
+    <div class="gray_header1">
       <p class="header_text">
-        소환사님이 선택한 챔피언
+        선택한 챔피언
       </p>
     </div>
     <div class="selected_champion_area">
@@ -35,7 +35,7 @@
       </div>
     </div>
 
-    <div class="champion_header2">
+    <div class="gray_header2">
       <p class="header_text">
         챔피언 목록
       </p>
@@ -62,7 +62,7 @@ export default {
       championArr: [
         { showEngName: "Garen", engName: "Garen", koreanName: "가렌", index: 0, selected: false, rank: 0 },
         { showEngName: "Galio", engName: "Galio", koreanName: "갈리오", index: 1, selected: false, rank: 0 },
-        { showEngName: "Gangplack", engName: "Gangplank", koreanName: "갱플랭크", index: 2, selected: false, rank: 0 },
+        { showEngName: "Gangplank", engName: "Gangplank", koreanName: "갱플랭크", index: 2, selected: false, rank: 0 },
         { showEngName: "Gragas", engName: "Gragas", koreanName: "그라가스", index: 3, selected: false, rank: 0 },
         { showEngName: "Graves", engName: "Graves", koreanName: "그레이브즈", index: 4, selected: false, rank: 0 },
         { showEngName: "Gnar", engName: "Gnar", koreanName: "나르", index: 5, selected: false, rank: 0 },
@@ -356,16 +356,7 @@ export default {
 </script>
 
 <style>
-.champion_header1 {
-  background-color: lightgray;
-  width: 100%;
-  border-radius: 20px 20px 0 0;
-}
 
-.champion_header2 {
-  background-color: lightgray;
-  width: 100%;
-}
 
 .header_text {
   margin: 0;

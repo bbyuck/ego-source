@@ -25,13 +25,13 @@
         <div class="hexa_top">
           <img v-bind:src="positionImgUrlRoot + top">
         </div>
-        <div class="hexa_jg" v-bind:style="{'top': hexaAreaWidth * 0.33 + 'px'}">
+        <div class="hexa_jg">
           <img v-bind:src="positionImgUrlRoot + jungle">
         </div>
-        <div class="hexa_mid" v-bind:style="{'top': hexaAreaWidth * 0.11 + 'px'}">
+        <div class="hexa_mid">
           <img v-bind:src="positionImgUrlRoot + mid">
         </div>
-        <div class="hexa_ad" v-bind:style="{'top': hexaAreaWidth * 0.22 + 'px'}">
+        <div class="hexa_ad">
           <img v-bind:src="positionImgUrlRoot + ad">
         </div>
         <div class="hexa_sup">
@@ -203,8 +203,8 @@ export default {
 
 <style>
 .profile_card {
-  width: 80%;
-  height: 500px;
+  width: 320px;
+  height: 530px;
   background-color:white;
   border-radius: 15px;
   display: block;
@@ -306,7 +306,7 @@ export default {
 
 
 .content_top {
-  height: 110px;
+  height: 120px;
 }
 
 .content_top_high {
@@ -330,16 +330,15 @@ export default {
 .hexa_area {
   position: relative;
   display: inline-block;
-  width: 55%;
+  width: 140px;
   height: 100px;
-  bottom: 0px;
+  top: 0;
 }
 
 .hexa_top, .hexa_jg, .hexa_mid, .hexa_ad, .hexa_sup {
-  width: 25%;
+  width: 50px;
   position: absolute;
-  display: block;
-  top: 0;
+  display: inline-block;
 }
 
 .hexa_top > img, .hexa_jg > img, .hexa_mid > img, .hexa_ad > img, .hexa_sup > img {
@@ -347,28 +346,32 @@ export default {
 }
 
 .hexa_top {
-  left: 20%;
+  left: 20px;
 }
 
 .hexa_jg {
-  left: 40%;
-  top: 60px;
+  left: 60px;
+  top: 67px;
 }
 
 .hexa_mid {
-  left: 40%;
-  top: 20px;
+  left: 60px;
+  top: 22px;
 }
 
 .hexa_ad {
-  left: 60%;
-  top: 40px;
+  left: 100px;
+  top: 45px;
 }
 
 .hexa_sup {
-  left: 60%;
+  left: 100px;
 }
 
+.content_mid {
+  position: relative;
+  top: 20px;
+}
 
 .astr_mark {
   width: 20px;
