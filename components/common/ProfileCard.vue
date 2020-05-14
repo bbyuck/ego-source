@@ -38,6 +38,7 @@
           <img v-bind:src="positionImgUrlRoot + support">
         </div>
         <div class="hexa_voice">
+          <img v-bind:src="positionImgUrlRoot + voice" alt="">
         </div>  
       </div>
     </div>
@@ -154,6 +155,13 @@ export default {
       }
       else {
         return 'support_off.png';
+      }
+    },
+    voice: function () {
+      if(this.myInfo.isVoiceOn) {
+        return 'voice_on.png'
+      } else {
+        return 'voice_off.png'
       }
     },
     hexaAreaWidth: function () {
@@ -335,13 +343,13 @@ export default {
   top: 0;
 }
 
-.hexa_top, .hexa_jg, .hexa_mid, .hexa_ad, .hexa_sup {
+.hexa_top, .hexa_jg, .hexa_mid, .hexa_ad, .hexa_sup, .hexa_voice {
   width: 50px;
   position: absolute;
   display: inline-block;
 }
 
-.hexa_top > img, .hexa_jg > img, .hexa_mid > img, .hexa_ad > img, .hexa_sup > img {
+.hexa_top > img, .hexa_jg > img, .hexa_mid > img, .hexa_ad > img, .hexa_sup > img, .hexa_voice > img {
   width: 100%;
 }
 
@@ -366,6 +374,11 @@ export default {
 
 .hexa_sup {
   left: 100px;
+}
+
+.hexa_voice {
+  left: 20px;
+  top: 45px;
 }
 
 .content_mid {

@@ -5,9 +5,22 @@
       <v-ons-carousel fullscreen swipeable auto-scroll auto-scroll-ratio="0.1"
         :index.sync="pageIndex"
       >
+        <v-ons-dialog
+          cancelable
+          :visible.sync="profileCardVisible"
+          class="pre_profile"
+        >
+          <profile-card v-bind:myInfo="preMyInfo" 
+            v-on:goToIngameId="pageIndex = 0; profileCardVisible = false;"
+            v-on:goToChampion="pageIndex = 2; profileCardVisible = false;"
+          ></profile-card>
+        </v-ons-dialog>
         <v-ons-carousel-item class="profile_make_page">
           <div class="profile_make_header">
             소환사 정보
+            <div class="profile_view_btn" v-on:click="curProfileView">
+              <img v-bind:src="'./src/assets/images/profile_make_btn/profile_view.png'" alt="">
+            </div>
           </div>
           <div class="profile_make_content_long">
             <profile-make-page1 
@@ -24,6 +37,9 @@
         <v-ons-carousel-item class="profile_make_page">
           <div class="profile_make_header">
             소환사 정보
+            <div class="profile_view_btn" v-on:click="curProfileView">
+              <img v-bind:src="'./src/assets/images/profile_make_btn/profile_view.png'" alt="">
+            </div>
           </div>
           <div class="profile_make_content_long">
             <profile-make-page2
@@ -36,6 +52,9 @@
         <v-ons-carousel-item class="profile_make_page">
           <div class="profile_make_header">
             챔피언 선택
+            <div class="profile_view_btn" v-on:click="curProfileView">
+              <img v-bind:src="'./src/assets/images/profile_make_btn/profile_view.png'" alt="">
+            </div>
           </div>
           <div class="input_area">
             <div class="input_box">
@@ -55,7 +74,10 @@
         </v-ons-carousel-item>
         <v-ons-carousel-item class="profile_make_page">
           <div class="profile_make_header">
-            특징 선택
+            ego태그 선택
+            <div class="profile_view_btn" v-on:click="curProfileView">
+              <img v-bind:src="'./src/assets/images/profile_make_btn/profile_view.png'" alt="">
+            </div>
           </div>
 
           <div class="profile_make_content_long">
@@ -91,10 +113,12 @@ import ProfileMakePage2 from './ProfileMakePage2.vue';
 import ProfileMakePage3 from './ProfileMakePage3.vue';
 import ProfileMakePage4 from './ProfileMakePage4.vue';
 import ProfileMakePage5 from './ProfileMakePage5.vue';
+import ProfileCard from '../common/ProfileCard.vue';
 
 export default {
   data: function () {
     return {
+      profileCardVisible: false,
       pageIndex: 0,
       championInput: '',
       completed: [false, false, false, false, false],
@@ -218,21 +242,40 @@ export default {
         this.completed[2] = true;
       }
     },
+    curProfileView: function() {
+      this.profileCardVisible = true;
+    }
   },
   components: {
     ProfileMakePage1,
     ProfileMakePage2,
     ProfileMakePage3,
     ProfileMakePage4,
-    ProfileMakePage5
+    ProfileMakePage5,
+    ProfileCard
   }
 }
 </script>
 
 <style>
+.dialog-container {
+  border-radius: 15px;
+}
+
 .profile_make_page {
   background-color: #461f41;
   height: 100%;
+}
+
+.profile_view_btn {
+  display: inline-block;
+  position: absolute;
+  right: 4%;
+  width: 10.8%;
+}
+
+.profile_view_btn img {
+  width: 100%;
 }
 
 .progress_dot {
@@ -322,7 +365,8 @@ export default {
   margin-left: auto;
   margin-right: auto;
   background-color: #fff;
-  padding-top: 10px;
+  padding-top: 3%;
+  margin-top: 5%;
 }
 
 .search_btn {

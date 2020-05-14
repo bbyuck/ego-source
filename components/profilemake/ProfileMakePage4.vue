@@ -3,46 +3,51 @@
     <div class="selected_playstyle_area">
       <div class="gray_header1">
         <p class="header_text">
-          선택한 플레이스타일
+          선택한 ego태그
         </p>
       </div>
     </div>
     <div class="playstyle_area">
       <div class="gray_header2">
         <p class="header_text">
-          플레이스타일 목록
+          ego태그 목록
         </p>
       </div>
       <div class="position_category">
         <div class="position_btn_container">
           <div class="position_btn" v-on:click="positionFilter('top')">
-            <img v-bind:src="btnUrl + topBtn" alt="">
+            <img v-show="topBtnOn" v-bind:src="btnUrl + 'top_on.png'" alt="">
+            <img v-show="!topBtnOn" v-bind:src="btnUrl + 'top_off.png'" alt="">
           </div>
         </div>
         <div class="position_btn_container">
           <div class="position_btn" v-on:click="positionFilter('jg')">
-            <img v-bind:src="btnUrl + jgBtn" alt="">
+            <img v-show="jgBtnOn" v-bind:src="btnUrl + 'jg_on.png'" alt="">
+            <img v-show="!jgBtnOn" v-bind:src="btnUrl + 'jg_off.png'" alt="">
           </div>
         </div>
         <div class="position_btn_container">
           <div class="position_btn" v-on:click="positionFilter('mid')">
-            <img v-bind:src="btnUrl + midBtn" alt="">
+            <img v-show="midBtnOn" v-bind:src="btnUrl + 'mid_on.png'" alt="">
+            <img v-show="!midBtnOn" v-bind:src="btnUrl + 'mid_off.png'" alt="">
           </div>
         </div>
         <div class="position_btn_container">
           <div class="position_btn" v-on:click="positionFilter('ad')">
-            <img v-bind:src="btnUrl + adBtn" alt="">
+            <img v-show="adBtnOn" v-bind:src="btnUrl + 'ad_on.png'" alt="">
+            <img v-show="!adBtnOn" v-bind:src="btnUrl + 'ad_off.png'" alt="">
           </div>
         </div>
         <div class="position_btn_container">
           <div class="position_btn" v-on:click="positionFilter('sup')">
-            <img v-bind:src="btnUrl + supBtn" alt="">
+            <img v-show="supBtnOn" v-bind:src="btnUrl + 'sup_on.png'" alt="">
+            <img v-show="!supBtnOn" v-bind:src="btnUrl + 'sup_off.png'" alt="">
           </div>
         </div>
       </div>
 
       <div class="playstyle_list">
-        {{ filter }} 특징 정보
+        {{ filter }} ego태그 정보
       </div>
     </div>
   </div>
@@ -53,66 +58,57 @@ export default {
   data: function () {
     return {
       btnUrl: './src/assets/images/profile_make_btn/',
-      topBtn: 'top_off.png',
-      jgBtn: 'jg_off.png',
-      midBtn: 'mid_off.png',
-      adBtn: 'ad_off.png',
-      supBtn: 'sup_off.png',
-      filter: ''
+      topBtnOn: true,
+      jgBtnOn: false,
+      midBtnOn: false,
+      adBtnOn: false,
+      supBtnOn: false,
+      filter: 'Top'
     }
   },
   methods: {
     positionFilter: function (payload) {
-      switch(this.filter) {
-      case 'Top':
-        if(payload !== 'top') {
-          this.topBtn = 'top_off.png';
-        }
-        break;
-      case 'Jungle':
-        if(payload !== 'jg') {
-          this.jgBtn = 'jg_off.png';
-        }
-        break;
-      case 'Mid':
-        if(payload !== 'mid') {
-          this.midBtn = 'mid_off.png';
-        }
-        break;
-      case 'AD Carry':
-        if(payload !== 'ad') {
-          this.adBtn = 'ad_off.png';
-        }
-        break;
-      case 'Support':
-        if(payload !== 'sup') {
-          this.supBtn = 'sup_off.png';
-        }
-        break;
-      default:
-        break;
-      }
-
+      
       switch(payload) {
       case 'top':
-        this.filter = 'Top';
-        this.topBtn = 'top_on.png';
+        this.topBtnOn = true;
+        this.jgBtnOn = false;
+        this.midBtnOn = false;
+        this.adBtnOn = false;
+        this.supBtnOn = false;
+        this.filter = "Top";
         break;
       case 'jg':
-        this.filter = 'Jungle';
-        this.jgBtn = 'jg_on.png';
+        this.topBtnOn = false;
+        this.jgBtnOn = true;
+        this.midBtnOn = false;
+        this.adBtnOn = false;
+        this.supBtnOn = false;
+        this.filter = "Jungle";
         break;
       case 'mid':
-        this.filter = 'Mid';
-        this.midBtn = 'mid_main.png';
+        this.topBtnOn = false;
+        this.jgBtnOn = false;
+        this.midBtnOn = true;
+        this.adBtnOn = false;
+        this.supBtnOn = false;
+        this.filter = "Mid";
         break;
       case 'ad':
-        this.filter = 'AD Carry';
-        this.adBtn = 'ad_on.png';
+        this.topBtnOn = false;
+        this.jgBtnOn = false;
+        this.midBtnOn = false;
+        this.adBtnOn = true;
+        this.supBtnOn = false;
+        this.filter = "AD Carry";
         break;
       case 'sup':
-        this.filter = 'Support';
-        this.supBtn = 'sup_on.png';
+        this.topBtnOn = false;
+        this.jgBtnOn = false;
+        this.midBtnOn = false;
+        this.adBtnOn = false;
+        this.supBtnOn = true;
+        this.filter = "Support";
         break;
       default:
         break;

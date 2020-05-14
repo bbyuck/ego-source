@@ -1,18 +1,18 @@
 <template id="main">
-  <v-ons-page>
+  <div class="full">
     <transition name="mode-change" mode="out-in">
-      <div v-if="appMode === -1">
+      <div class="full" v-if="appMode === -1">
         <profile-card></profile-card> <!--테스트코드-->
       </div>
-      <div v-if="appMode === 0">
+      <div class="full" v-if="appMode === 0">
         <start-view v-on:start="nextMode"></start-view>
       </div>
 
-      <div v-if="appMode === 2">
+      <div class="full" v-if="appMode === 2">
         <profile-make-view v-on:profile_complete="nextMode"></profile-make-view>
       </div>
 
-      <div v-if="appMode === 4">
+      <div class="full" v-if="appMode === 4">
         <top-toolbar></top-toolbar>
         <v-ons-tabbar position="bottom"
           :tabs="tabs"
@@ -22,7 +22,7 @@
         </v-ons-tabbar>
       </div>
     </transition>
-  </v-ons-page>
+  </div>
 </template>
 
 <script>
@@ -97,8 +97,16 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
+
+.full {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
 .page__content {
   background-color:#461f41;
+  overflow: hidden;
 }
 
 .center {

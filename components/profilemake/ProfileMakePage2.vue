@@ -9,13 +9,15 @@
 
     <div class="voice_area">
       <div class="voice_btn_container">
-        <div class="voice_btn" v-on:click="micOn">
-          <img v-bind:src="btnUrl + micBtnLeft">
+        <div class="voice_btn" v-on:click="micOnToggle">
+          <img v-show="micOn" v-bind:src="btnUrl + 'mic_on_ON.png'">
+          <img v-show="!micOn" v-bind:src="btnUrl + 'mic_on_OFF.png'" alt="">
         </div>
       </div>
       <div class="voice_btn_container">
-        <div class="voice_btn" v-on:click="micOff">
-          <img v-bind:src="btnUrl + micBtnRight">
+        <div class="voice_btn" v-on:click="micOffToggle">
+          <img v-show="!micOn" v-bind:src="btnUrl + 'mic_off_ON.png'">
+          <img v-show="micOn" v-bind:src="btnUrl + 'mic_off_OFF.png'" alt="">
         </div>
       </div>
     </div>
@@ -29,34 +31,45 @@
     <div class="position_area">
       <div class="position_btn_container">
         <div class="position_btn" v-on:click="topToggle">
-          <img v-bind:src="btnUrl + topBtn">
+          <img v-show="topBtnOn" v-bind:src="btnUrl + 'top_on.png'">
+          <img v-show="!topBtnOn" v-bind:src="btnUrl + 'top_off.png'">
         </div>
       </div>
       <div class="position_btn_container">
         <div class="position_btn" v-on:click="jgToggle">
-          <img v-bind:src="btnUrl + jgBtn">
+          <img v-show="jgBtnOn" v-bind:src="btnUrl + 'jg_on.png'">
+          <img v-show="!jgBtnOn" v-bind:src="btnUrl + 'jg_off.png'">
         </div>
       </div>
       <div class="position_btn_container">
         <div class="position_btn" v-on:click="midToggle">
-          <img v-bind:src="btnUrl + midBtn">
+          <img v-show="midBtnOn" v-bind:src="btnUrl + 'mid_on.png'">
+          <img v-show="!midBtnOn" v-bind:src="btnUrl + 'mid_off.png'">
         </div>
       </div>
       <div class="position_btn_container">
         <div class="position_btn" v-on:click="adToggle">
-          <img v-bind:src="btnUrl + adBtn">
+          <img v-show="adBtnOn" v-bind:src="btnUrl + 'ad_on.png'">
+          <img v-show="!adBtnOn" v-bind:src="btnUrl + 'ad_off.png'">
         </div>
       </div>
       <div class="position_btn_container">
         <div class="position_btn" v-on:click="supToggle">
-          <img v-bind:src="btnUrl + supBtn">
+          <img v-show="supBtnOn" v-bind:src="btnUrl + 'sup_on.png'">
+          <img v-show="!supBtnOn" v-bind:src="btnUrl + 'sup_off.png'">
         </div>
       </div>
       <div class="position_btn_container">
         <div class="position_btn">
-          <img v-bind:src="btnUrl" alt="캐릭터 이미지">
         </div>
       </div>
+    </div>
+    
+    <div class="shape-758_img">
+      <img v-bind:src="'./src/assets/images/design/shape-758.png'" alt="">
+    </div>
+    <div class="shape-10_img">
+      <img v-bind:src="'./src/assets/images/design/shape-10.png'" alt="">
     </div>
   </div>
 </template>
@@ -66,68 +79,65 @@ export default {
   data: function() {
     return {
       btnUrl: './src/assets/images/profile_make_btn/',
-      micBtnLeft: 'mic_on_ON.png',
-      micBtnRight: 'mic_off_OFF.png',
-      topBtn: 'top_off.png',
-      jgBtn: 'jg_off.png',
-      midBtn: 'mid_off.png',
-      adBtn: 'ad_off.png',
-      supBtn: 'sup_off.png'
+      micOn: true,
+      topBtnOn: false,
+      jgBtnOn: false,
+      midBtnOn: false,
+      adBtnOn: false,
+      supBtnOn: false,
     }
   },
   methods: {
-    micOn: function () {
-      this.micBtnLeft = 'mic_on_ON.png';
-      this.micBtnRight = 'mic_off_OFF.png';
+    micOnToggle: function () {
+      this.micOn = true;
       this.$emit('micOn');
     },
-    micOff: function () {
-      this.micBtnLeft = 'mic_on_OFF.png';
-      this.micBtnRight = 'mic_off_ON.png';
+    micOffToggle: function () {
+      this.micOn = false;
       this.$emit('micOff');
     },
     topToggle: function () {
-      if (this.topBtn === 'top_off.png') {
-        this.topBtn = 'top_on.png';
+      if (this.topBtnOn === false) {
+        this.topBtnOn = true;
         this.$emit('positionBtnTouch', 'topOn');
-      } else if(this.topBtn === 'top_on.png'){
-        this.topBtn = 'top_off.png';
+      } else if(this.topBtnOn === true){
+        this.topBtnOn = false;
         this.$emit('positionBtnTouch', 'topOff');
       }
     },
     jgToggle: function () {
-      if (this.jgBtn === 'jg_off.png') {
-        this.jgBtn = 'jg_on.png';
+      if (this.jgBtnOn === false) {
+        this.jgBtnOn = true;
         this.$emit('positionBtnTouch', 'jgOn');
-      } else if(this.jgBtn === 'jg_on.png'){
-        this.jgBtn = 'jg_off.png';
+      } else if(this.jgBtnOn === true){
+        this.jgBtnOn = false;
         this.$emit('positionBtnTouch', 'jgOff');
       }
     },
     midToggle: function () {
-      if (this.midBtn === 'mid_off.png') {
-        this.midBtn = 'mid_main.png';
+      if (this.midBtnOn === false) {
+        this.midBtnOn = true;
         this.$emit('positionBtnTouch', 'midOn');
-      } else if(this.midBtn === 'mid_main.png'){
-        this.midBtn = 'mid_off.png';
+      } else if(this.midBtnOn === true){
+        this.midBtnOn = false;
         this.$emit('positionBtnTouch', 'midOff');
       }
     },
     adToggle: function () {
-      if (this.adBtn === 'ad_off.png') {
-        this.adBtn = 'ad_on.png';
+      if (this.adBtnOn === false) {
+        this.adBtnOn = true;
         this.$emit('positionBtnTouch', 'adOn');
-      } else if(this.adBtn === 'ad_on.png'){
-        this.adBtn = 'ad_off.png';
+      } else if(this.adBtnOn === true){
+        this.adBtnOn = false;
         this.$emit('positionBtnTouch', 'adOff');
       }
     },
     supToggle: function () {
-      if (this.supBtn === 'sup_off.png') {
-        this.supBtn = 'sup_on.png';
+      if (this.supBtnOn === false) {
+        this.supBtnOn = true;
         this.$emit('positionBtnTouch', 'supOn');
-      } else if(this.supBtn === 'sup_on.png'){
-        this.supBtn = 'sup_off.png';
+      } else if(this.supBtnOn === true){
+        this.supBtnOn = false;
         this.$emit('positionBtnTouch', 'supOff');
       }
     }
@@ -152,5 +162,27 @@ export default {
 .position_btn_container {
   width: 26%;
   display: inline-block;
+}
+
+.shape-10_img {
+  width: 31.7%;
+  position: absolute;
+  left: 35.3%;
+  bottom: 10.9%;
+}
+
+.shape-10_img img {
+  width: 100%;
+}
+
+.shape-758_img {
+  width: 31.7%;
+  position: absolute;
+  right: 8.4%;
+  bottom: 10.9%;
+}
+
+.shape-758_img img {
+  width: 100%;
 }
 </style>
