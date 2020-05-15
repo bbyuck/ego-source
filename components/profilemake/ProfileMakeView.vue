@@ -8,6 +8,7 @@
         <v-ons-dialog
           cancelable
           :visible.sync="profileCardVisible"
+          :mask-color="'rgba(0, 0, 0, 0.7)'"
           class="pre_profile"
         >
           <profile-card v-bind:myInfo="preMyInfo" 
