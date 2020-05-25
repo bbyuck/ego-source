@@ -4,13 +4,13 @@
       <div class="sub_title">
         e스포츠 팀 매칭 서비스
       </div>
-      <div class="title" v-on:click="next">
+      <div class="title">
         We Go With EGO
       </div>
     </div>
 
     
-    <div class="banner_logo" v-on:click="unlinkKakao">
+    <div class="banner_logo" v-on:click="alertTest">
       <img v-bind:src="'./src/assets/images/design/ego-title.png'" alt="">
     </div>
 
@@ -51,11 +51,17 @@ export default {
     kakaoLogin: function () {
       this.$emit("kakaoLogin");
     },
-    unlinkKakao: function () {
-      this.$emit("unlinkKakao");
-    },
-    next: function () {
-      this.$emit("next");
+    alertTest: function () {
+      function alertDismissed() {
+        // do something
+      }
+
+      navigator.notification.alert(
+        'You are the winner!',  // message
+        alertDismissed,         // callback
+        'Game Over',            // title
+        'Done'                  // buttonName
+      );
     }
   }
 }
@@ -123,7 +129,7 @@ export default {
   width: 16%;
   position: absolute;
   left: 39.7%;
-  bottom: 32.7%;
+  bottom: 33%;
 }
 .red img {
   width: 100%;
@@ -144,7 +150,7 @@ export default {
   width: 27.2%;
   position: absolute;
   left: 3.1%;
-  bottom: 33.8%;
+  bottom: 33%;
 }
 
 .blue img {

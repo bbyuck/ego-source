@@ -9,11 +9,11 @@ import store from './store';
 import App from './App';
 import Carousel3d from 'vue-carousel-3d';
 
+
 Vue.config.productionTip = false;
 
 Vue.use(VueOnsen);
 Vue.use(Carousel3d);
-
 
 /* eslint-disable no-new */
 new Vue({

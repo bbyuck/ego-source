@@ -75,7 +75,7 @@
         </v-ons-carousel-item>
         <v-ons-carousel-item class="profile_make_page">
           <div class="profile_make_header">
-            ego태그 선택
+            EGO태그 선택
             <div class="profile_view_btn" v-on:click="curProfileView">
               <img v-bind:src="'./src/assets/images/profile_make_btn/profile_view.png'" alt="">
             </div>
@@ -140,7 +140,7 @@ export default {
         myMainPositionIdx: -1,
         isVoiceOn: true,
         myChampions: [],
-        myPlayStyles: []
+        myEGOtags: []
       }
     }
   },
@@ -243,6 +243,9 @@ export default {
         this.completed[2] = true;
       }
     },
+    EGOtagUpdate: function (payload) {
+      this.preMyInfo.myEGOtags = payload;
+    },
     curProfileView: function() {
       this.profileCardVisible = true;
     }
@@ -317,14 +320,16 @@ export default {
 }
 
 .gray_header1 {
-  background-color: lightgray;
+  background-color: #f3f2f2;
   width: 100%;
   border-radius: 20px 20px 0 0;
+  position: relative;
 }
 
 .gray_header2 {
-  background-color: lightgray;
+  background-color: #f3f2f2;
   width: 100%;
+  position: relative;
 }
 
 .profile_make_content {
