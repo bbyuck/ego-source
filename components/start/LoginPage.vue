@@ -1,45 +1,40 @@
 <template>
   <div class="login_page full">
     <div class="title_container">
-      <div class="sub_title">
-        e스포츠 팀 매칭 서비스
-      </div>
-      <div class="title" v-on:click="next">
-        We Go With EGO
-      </div>
+      <div class="sub_title">e스포츠 팀 매칭 서비스</div>
+      <div class="title" v-on:click="next">We Go With EGO</div>
     </div>
 
-    
     <div class="banner_logo" v-on:click="unlinkKakao">
-      <img v-bind:src="'./src/assets/images/design/ego-title.png'" alt="">
+      <img v-bind:src="'./src/assets/images/design/ego-title.png'" alt />
     </div>
 
     <div class="bottom_area">
       <div class="shape-14-copy">
-        <img v-bind:src="'./src/assets/images/design/shape-14-copy.png'" alt="">
+        <img v-bind:src="'./src/assets/images/design/shape-14-copy.png'" alt />
       </div>
-      
+
       <div class="red-trio">
-        <img v-bind:src="'./src/assets/images/design/red-trio.png'" alt="">
+        <img v-bind:src="'./src/assets/images/design/red-trio.png'" alt />
       </div>
       <div class="blue">
-        <img v-bind:src="'./src/assets/images/design/blue.png'" alt="">
+        <img v-bind:src="'./src/assets/images/design/blue.png'" alt />
       </div>
 
       <div class="bottom_bg">
         <div class="btn_container">
           <div class="login_btn kakao_login" v-on:click="kakaoLogin">
-            <img v-bind:src="'./src/assets/images/button/kakao-login.png'" alt="">
+            <img v-bind:src="'./src/assets/images/button/kakao-login.png'" alt />
           </div>
         </div>
       </div>
 
       <div class="red">
-        <img v-bind:src="'./src/assets/images/design/red.png'" alt="">
+        <img v-bind:src="'./src/assets/images/design/red.png'" alt />
       </div>
 
       <div class="shape-14">
-        <img v-bind:src="'./src/assets/images/design/shape-14.png'" alt="">
+        <img v-bind:src="'./src/assets/images/design/shape-14.png'" alt />
       </div>
     </div>
   </div>
@@ -47,18 +42,18 @@
 
 <script>
 export default {
-  methods:{
-    kakaoLogin: function () {
+  methods: {
+    kakaoLogin: function() {
       this.$emit("kakaoLogin");
     },
-    unlinkKakao: function () {
+    unlinkKakao: function() {
       this.$emit("unlinkKakao");
     },
-    next: function () {
+    next: function() {
       this.$emit("next");
     }
   }
-}
+};
 </script>
 
 <style>
@@ -157,12 +152,10 @@ export default {
   right: -6.5%;
   bottom: 31.8%;
   object-fit: contain;
-  
 }
 
-.shape-14-copy img{
+.shape-14-copy img {
   width: 100%;
-
 }
 
 .bottom_bg {

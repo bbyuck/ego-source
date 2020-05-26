@@ -1,6 +1,10 @@
 <template>
   <v-ons-page>
-    <v-ons-carousel fullscreen swipeable auto-scroll auto-scroll-ratio="0.1"
+    <v-ons-carousel
+      fullscreen
+      swipeable
+      auto-scroll
+      auto-scroll-ratio="0.1"
       :index.sync="carouselIndex"
     >
       <v-ons-carousel-item class="start_page">
@@ -17,34 +21,38 @@
       </v-ons-carousel-item>
     </v-ons-carousel>
     <div class="dots">
-      <span :index="dotIndex - 1" v-for="dotIndex in 3" :key="dotIndex" style="cursor: pointer" @click="carouselIndex = dotIndex - 1">
-        {{ carouselIndex === dotIndex - 1 ? '\u25CF' : '\u25CB' }}
-      </span>
+      <span
+        :index="dotIndex - 1"
+        v-for="dotIndex in 3"
+        :key="dotIndex"
+        style="cursor: pointer"
+        @click="carouselIndex = dotIndex - 1"
+      >{{ carouselIndex === dotIndex - 1 ? '\u25CF' : '\u25CB' }}</span>
     </div>
   </v-ons-page>
 </template>
 
 <script>
 export default {
-  data: function () {
+  data: function() {
     return {
-      carouselIndex: 0,
-    }
+      carouselIndex: 0
+    };
   },
   methods: {
-    start: function () {
+    start: function() {
       this.$emit("start");
     }
   },
   computed: {
-    deviceHeight: function () {
+    deviceHeight: function() {
       return screen.height;
     },
-    deviceWidth: function () {
+    deviceWidth: function() {
       return screen.width;
     }
   }
-}
+};
 </script>
 
 <style>

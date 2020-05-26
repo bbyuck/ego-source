@@ -8,16 +8,14 @@
 </template>
 
 <script>
-import ProfileCard from '../common/ProfileCard.vue'
+import ProfileCard from "../common/ProfileCard.vue";
 
 export default {
-  data: function () {
-    return {
-
-    }
+  data: function() {
+    return {};
   },
   methods: {
-    profile_delete: function () {
+    profile_delete: function() {
       this.$store.commit("deleteProfile");
     }
   },
@@ -25,17 +23,17 @@ export default {
     ProfileCard
   },
   computed: {
-    myInfo: function () {
+    myInfo: function() {
       let preset = JSON.parse(localStorage.getItem("preset1"));
       console.log(preset);
-      if(preset !== null) {
+      if (preset !== null) {
         return preset;
       } else {
         return null;
       }
     }
   }
-}
+};
 </script>
 
 <style>

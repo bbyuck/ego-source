@@ -7,7 +7,7 @@ import Vue from 'vue';
 import VueOnsen from 'vue-onsenui';
 import store from './store';
 import App from './App';
-import Carousel3d from 'vue-carousel-3d';
+import Carousel3d from "vue-carousel-3d";
 
 
 Vue.config.productionTip = false;

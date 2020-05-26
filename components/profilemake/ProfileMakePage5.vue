@@ -1,29 +1,30 @@
 <template>
   <div class="page_content">
-    <profile-card v-bind:myInfo="myInfo" 
+    <profile-card
+      v-bind:myInfo="myInfo"
       v-on:goToChampion="goToChampionToView"
       v-on:goToIngameId="goToIngameIdToView"
-      ></profile-card>
+    ></profile-card>
   </div>
 </template>
 
 <script>
-import ProfileCard from '../common/ProfileCard.vue'
+import ProfileCard from "../common/ProfileCard.vue";
 
 export default {
-  props: ['myInfo'],
+  props: ["myInfo"],
   methods: {
-    goToChampionToView: function () {
+    goToChampionToView: function() {
       this.$emit("goToChampionInView");
     },
-    goToIngameIdToView: function () {
+    goToIngameIdToView: function() {
       this.$emit("goToIngameIdInView");
     }
   },
   components: {
     ProfileCard
   }
-}
+};
 </script>
 
 <style scoped>

@@ -3,10 +3,15 @@
     <div class="ingame_id_area center">
       <h3 class="title">소환사명 입력</h3>
       <p class="subtitle">소환사명을 입력해주세요.</p>
-		  <span class="input input--minoru">
-			  <input class="input__field input__field--minoru" type="text" id="ingameIdInput" v-on:input="typing"
-        placeholder="입력">
-		  </span>
+      <span class="input input--minoru">
+        <input
+          class="input__field input__field--minoru"
+          type="text"
+          id="ingameIdInput"
+          v-on:input="typing"
+          placeholder="입력"
+        />
+      </span>
     </div>
 
     <div class="position_select_area">
@@ -14,9 +19,21 @@
       <p class="subtitle">포지션을 선택해주세요.</p>
       <div class="position_btn_container">
         <div class="position_btn" v-on:click="topBtn">
-          <img class="position_btn_img" v-bind:src="positionImgUrl('top_off.png')" v-show="top === 0">
-          <img class="position_btn_img" v-bind:src="positionImgUrl('top_on.png')" v-show="top === 1">
-          <img class="position_btn_img" v-bind:src="positionImgUrl('top_main.png')" v-show="top === 2">
+          <img
+            class="position_btn_img"
+            v-bind:src="positionImgUrl('top_off.png')"
+            v-show="top === 0"
+          />
+          <img
+            class="position_btn_img"
+            v-bind:src="positionImgUrl('top_on.png')"
+            v-show="top === 1"
+          />
+          <img
+            class="position_btn_img"
+            v-bind:src="positionImgUrl('top_main.png')"
+            v-show="top === 2"
+          />
         </div>
         <div class="position_main_btn">
           <v-ons-button v-if="top === 1" v-on:click="selectMainPosition(0)">메인</v-ons-button>
@@ -25,20 +42,44 @@
 
       <div class="position_btn_container">
         <div class="position_btn" v-on:click="jgBtn">
-          <img class="position_btn_img" v-bind:src="positionImgUrl('jungle_off.png')" v-show="jg === 0">
-          <img class="position_btn_img" v-bind:src="positionImgUrl('jungle_on.png')" v-show="jg === 1">
-          <img class="position_btn_img" v-bind:src="positionImgUrl('jungle_main.png')" v-show="jg === 2">
+          <img
+            class="position_btn_img"
+            v-bind:src="positionImgUrl('jungle_off.png')"
+            v-show="jg === 0"
+          />
+          <img
+            class="position_btn_img"
+            v-bind:src="positionImgUrl('jungle_on.png')"
+            v-show="jg === 1"
+          />
+          <img
+            class="position_btn_img"
+            v-bind:src="positionImgUrl('jungle_main.png')"
+            v-show="jg === 2"
+          />
         </div>
         <div class="position_main_btn">
           <v-ons-button v-if="jg === 1" v-on:click="selectMainPosition(1)">메인</v-ons-button>
         </div>
       </div>
-      
+
       <div class="position_btn_container">
         <div class="position_btn" v-on:click="midBtn">
-          <img class="position_btn_img" v-bind:src="positionImgUrl('mid_off.png')" v-show="mid === 0">
-          <img class="position_btn_img" v-bind:src="positionImgUrl('mid_on.png')" v-show="mid === 1">
-          <img class="position_btn_img" v-bind:src="positionImgUrl('mid_main.png')" v-show="mid === 2">
+          <img
+            class="position_btn_img"
+            v-bind:src="positionImgUrl('mid_off.png')"
+            v-show="mid === 0"
+          />
+          <img
+            class="position_btn_img"
+            v-bind:src="positionImgUrl('mid_on.png')"
+            v-show="mid === 1"
+          />
+          <img
+            class="position_btn_img"
+            v-bind:src="positionImgUrl('mid_main.png')"
+            v-show="mid === 2"
+          />
         </div>
         <div class="position_main_btn">
           <v-ons-button v-if="mid === 1" v-on:click="selectMainPosition(2)">메인</v-ons-button>
@@ -47,9 +88,13 @@
 
       <div class="position_btn_container">
         <div class="position_btn" v-on:click="adBtn">
-          <img class="position_btn_img" v-bind:src="positionImgUrl('ad_off.png')" v-show="ad === 0">
-          <img class="position_btn_img" v-bind:src="positionImgUrl('ad_on.png')" v-show="ad === 1">
-          <img class="position_btn_img" v-bind:src="positionImgUrl('ad_main.png')" v-show="ad === 2">
+          <img class="position_btn_img" v-bind:src="positionImgUrl('ad_off.png')" v-show="ad === 0" />
+          <img class="position_btn_img" v-bind:src="positionImgUrl('ad_on.png')" v-show="ad === 1" />
+          <img
+            class="position_btn_img"
+            v-bind:src="positionImgUrl('ad_main.png')"
+            v-show="ad === 2"
+          />
         </div>
         <div class="position_main_btn">
           <v-ons-button v-if="ad === 1" v-on:click="selectMainPosition(3)">메인</v-ons-button>
@@ -58,9 +103,21 @@
 
       <div class="position_btn_container">
         <div class="position_btn" v-on:click="supBtn">
-          <img class="position_btn_img" v-bind:src="positionImgUrl('support_off.png')" v-show="sup === 0">
-          <img class="position_btn_img" v-bind:src="positionImgUrl('support_on.png')" v-show="sup === 1">
-          <img class="position_btn_img" v-bind:src="positionImgUrl('support_main.png')" v-show="sup === 2">
+          <img
+            class="position_btn_img"
+            v-bind:src="positionImgUrl('support_off.png')"
+            v-show="sup === 0"
+          />
+          <img
+            class="position_btn_img"
+            v-bind:src="positionImgUrl('support_on.png')"
+            v-show="sup === 1"
+          />
+          <img
+            class="position_btn_img"
+            v-bind:src="positionImgUrl('support_main.png')"
+            v-show="sup === 2"
+          />
         </div>
         <div class="position_main_btn">
           <v-ons-button v-if="sup === 1" v-on:click="selectMainPosition(4)">메인</v-ons-button>
@@ -80,15 +137,14 @@
         </div>
       </div>
     </div>
-
   </div>
 </template>
 
 <script>
 export default {
-  data: function () {
+  data: function() {
     return {
-      inputId: '',
+      inputId: "",
       top: 0,
       jg: 0,
       mid: 0,
@@ -97,23 +153,23 @@ export default {
       mainSelected: false,
       mainIndex: Number,
       pageCompleted: false
-    }
+    };
   },
   methods: {
-    voiceOn: function () {
+    voiceOn: function() {
       this.$store.commit("voiceOn");
     },
-    voiceOff: function () {
+    voiceOff: function() {
       this.$store.commit("voiceOff");
     },
-    topBtn: function () {
-      if (this.top === 0){
+    topBtn: function() {
+      if (this.top === 0) {
         this.top = 1;
         this.$store.commit("positionOn", 0);
       } else {
         this.top = 0;
         this.$store.commit("positionOff", 0);
-        if(this.mainIndex === 0) {
+        if (this.mainIndex === 0) {
           this.mainSelected = false;
           this.mainIndex = -1;
         }
@@ -121,25 +177,24 @@ export default {
 
       if (this.inpuId === "" || !this.mainSelected) {
         this.pageCompleted = false;
-      }
-      else {
+      } else {
         this.pageCompleted = true;
       }
 
-      if(this.inputId === "") {
+      if (this.inputId === "") {
         this.pageCompleted = false;
       }
 
       this.$store.commit("basicInfoPageCanComplete", this.pageCompleted);
     },
-    jgBtn: function () {
-      if (this.jg === 0){
+    jgBtn: function() {
+      if (this.jg === 0) {
         this.jg = 1;
         this.$store.commit("positionOn", 1);
       } else {
         this.jg = 0;
         this.$store.commit("positionOff", 0);
-          if(this.mainIndex === 1) {
+        if (this.mainIndex === 1) {
           this.mainSelected = false;
           this.mainIndex = -1;
         }
@@ -147,25 +202,24 @@ export default {
 
       if (this.inpuId === "" || !this.mainSelected) {
         this.pageCompleted = false;
-      }
-      else {
+      } else {
         this.pageCompleted = true;
       }
 
-      if(this.inputId === "") {
+      if (this.inputId === "") {
         this.pageCompleted = false;
       }
 
       this.$store.commit("basicInfoPageCanComplete", this.pageCompleted);
     },
-    midBtn: function () {
-      if (this.mid === 0){
+    midBtn: function() {
+      if (this.mid === 0) {
         this.mid = 1;
         this.$store.commit("positionOn", 2);
       } else {
         this.mid = 0;
         this.$store.commit("positionOff", 2);
-        if(this.mainIndex === 2) {
+        if (this.mainIndex === 2) {
           this.mainSelected = false;
           this.mainIndex = -1;
         }
@@ -173,25 +227,24 @@ export default {
 
       if (this.inpuId === "" || !this.mainSelected) {
         this.pageCompleted = false;
-      }
-      else {
+      } else {
         this.pageCompleted = true;
       }
 
-      if(this.inputId === "") {
+      if (this.inputId === "") {
         this.pageCompleted = false;
       }
 
       this.$store.commit("basicInfoPageCanComplete", this.pageCompleted);
     },
-    adBtn: function () {
-      if (this.ad === 0){
+    adBtn: function() {
+      if (this.ad === 0) {
         this.ad = 1;
         this.$store.commit("positionOn", 3);
       } else {
         this.ad = 0;
         this.$store.commit("positionOff", 3);
-        if(this.mainIndex === 3) {
+        if (this.mainIndex === 3) {
           this.mainSelected = false;
           this.mainIndex = -1;
         }
@@ -199,25 +252,24 @@ export default {
 
       if (this.inpuId === "" || !this.mainSelected) {
         this.pageCompleted = false;
-      }
-      else {
+      } else {
         this.pageCompleted = true;
       }
 
-      if(this.inputId === "") {
+      if (this.inputId === "") {
         this.pageCompleted = false;
       }
 
       this.$store.commit("basicInfoPageCanComplete", this.pageCompleted);
     },
-    supBtn: function () {
-      if (this.sup === 0){
+    supBtn: function() {
+      if (this.sup === 0) {
         this.sup = 1;
         this.$store.commit("positionOn", 4);
       } else {
         this.sup = 0;
         this.$store.commit("positionOff", 4);
-        if(this.mainIndex === 4) {
+        if (this.mainIndex === 4) {
           this.mainSelected = false;
           this.mainIndex = -1;
         }
@@ -225,43 +277,41 @@ export default {
 
       if (this.inpuId === "" || !this.mainSelected) {
         this.pageCompleted = false;
-      }
-      else {
+      } else {
         this.pageCompleted = true;
       }
 
-      if(this.inputId === "") {
+      if (this.inputId === "") {
         this.pageCompleted = false;
       }
 
       this.$store.commit("basicInfoPageCanComplete", this.pageCompleted);
     },
-    selectMainPosition: function (index) {
+    selectMainPosition: function(index) {
       this.$store.commit("selectMainPosition", index);
 
-      if (!this.mainSelected) {        
+      if (!this.mainSelected) {
         this.mainIndex = index;
         this.mainSelected = true;
-      }
-      else {
+      } else {
         switch (this.mainIndex) {
-        case 0:
-          this.top = 1;
-          break;
-        case 1:
-          this.jg = 1;
-          break;
-        case 2:
-          this.mid = 1;
-          break;
-        case 3:
-          this.ad = 1;
-          break;
-        case 4:
-          this.sup = 1;
-          break;
-        default:
-          break;
+          case 0:
+            this.top = 1;
+            break;
+          case 1:
+            this.jg = 1;
+            break;
+          case 2:
+            this.mid = 1;
+            break;
+          case 3:
+            this.ad = 1;
+            break;
+          case 4:
+            this.sup = 1;
+            break;
+          default:
+            break;
         }
 
         this.mainIndex = index;
@@ -288,12 +338,11 @@ export default {
       }
       if (this.inpuId === "" || !this.mainSelected) {
         this.pageCompleted = false;
-      }
-      else {
+      } else {
         this.pageCompleted = true;
       }
 
-      if(this.inputId === "") {
+      if (this.inputId === "") {
         this.pageCompleted = false;
       }
 
@@ -304,37 +353,34 @@ export default {
       this.$store.commit("inputIngameId", this.inputId);
       if (this.inpuId === "" || !this.mainSelected) {
         this.pageCompleted = false;
-      }
-      else {
+      } else {
         this.pageCompleted = true;
       }
 
-      if(this.inputId === "") {
+      if (this.inputId === "") {
         this.pageCompleted = false;
       }
 
       this.$store.commit("basicInfoPageCanComplete", this.pageCompleted);
-    },    
-    positionImgUrl: function (name) {
+    },
+    positionImgUrl: function(name) {
       return "./src/assets/images/position/" + name;
     }
   },
   computed: {
-    isVoiceOn: function () {
+    isVoiceOn: function() {
       return this.$store.state.isVoiceOn;
-    },
-
+    }
   }
-}
+};
 </script>
 
 <style>
-
 .position_btn_container {
   vertical-align: bottom;
 }
 
-@media (min-height:500px) and (max-height:599px) {  
+@media (min-height: 500px) and (max-height: 599px) {
   .ingame_id_area {
     margin-top: 15%;
   }
@@ -349,7 +395,7 @@ export default {
   }
 }
 
-@media (min-height:600px) and (max-height:699px) {  
+@media (min-height: 600px) and (max-height: 699px) {
   .ingame_id_area {
     margin-top: 15%;
   }
@@ -357,10 +403,9 @@ export default {
   .position_select_area {
     height: 180px;
   }
-
 }
 
-@media (min-height:700px) and (max-height:799px) {  
+@media (min-height: 700px) and (max-height: 799px) {
   .ingame_id_area {
     margin-top: 20%;
   }
@@ -375,12 +420,12 @@ export default {
   }
 }
 
-@media (min-height:800px) and (max-height: 900px) {  
+@media (min-height: 800px) and (max-height: 900px) {
   .ingame_id_area {
     margin-top: 25%;
   }
 
-.position_select_area {
+  .position_select_area {
     height: 180px;
     margin-top: 10%;
   }
@@ -394,7 +439,6 @@ export default {
   width: 100%;
   height: 100px;
 }
-
 
 .voice_switch {
   display: inline-block;
@@ -411,7 +455,6 @@ export default {
   margin-top: 12%;
 }
 
-
 .subtitle {
   color: gray;
 }
@@ -419,7 +462,6 @@ export default {
 /*
  * 포지션 버튼 css
  */
-
 
 .input {
   margin-top: 0;
@@ -447,20 +489,19 @@ export default {
   margin-top: 5px;
 }
 
-
 .pos_icon {
   color: white;
   font-size: 35px;
 }
 
-@media (min-width:300px) and (max-width: 340px) {
+@media (min-width: 300px) and (max-width: 340px) {
   .position_btn_container {
     margin-left: 0;
     margin-right: 0;
   }
 }
 
-.filter{
+.filter {
   background-color: rgba(135, 111, 132, 0.6);
 }
 </style>

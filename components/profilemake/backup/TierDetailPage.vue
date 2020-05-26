@@ -1,17 +1,22 @@
 <template>
   <div id="tier_detail">
     <div>
-      <img v-bind:src="selectedTierImgUrl" id="my_tier_img">
+      <img v-bind:src="selectedTierImgUrl" id="my_tier_img" />
     </div>
 
     <div class="center">
-      <v-ons-segment v-if="!isHigh" v-bind:index.sync="levelIndex" v-on:postchange="levelSelected" class="tier_lev_list">
+      <v-ons-segment
+        v-if="!isHigh"
+        v-bind:index.sync="levelIndex"
+        v-on:postchange="levelSelected"
+        class="tier_lev_list"
+      >
         <button>I</button>
         <button>II</button>
         <button>III</button>
         <button>IV</button>
       </v-ons-segment>
-      
+
       <v-ons-row class="lp_bar" v-if="isHigh" v-on:change="lpComplete">
         <v-ons-col width="40px" style="text-align: center; line-height: 31px;">
           <i class="fas fa-minus"></i>
@@ -24,54 +29,49 @@
         </v-ons-col>
       </v-ons-row>
     </div>
-    
-    <div class="completed_tier" v-if="!isHigh">
-      {{ myTier }} {{ levels[levelIndex] }}
-    </div>
-    <div class="completed_tier" v-if="isHigh">
-      {{ myTier }} {{ myLp }} LP
-    </div>
+
+    <div class="completed_tier" v-if="!isHigh">{{ myTier }} {{ levels[levelIndex] }}</div>
+    <div class="completed_tier" v-if="isHigh">{{ myTier }} {{ myLp }} LP</div>
   </div>
 </template>
 
 <script>
-
 export default {
-  data: function () {
+  data: function() {
     return {
       levels: ["I", "II", "III", "IV"],
       selected: false,
       lpInput: 0,
       levelIndex: 0,
       tweenedLp: 0
-    }
+    };
   },
   methods: {
     levelSelected: function() {
       this.$store.commit("setTierLev", this.levelIndex + 1);
     },
-    lpComplete: function () {
+    lpComplete: function() {
       this.$store.commit("setLp", this.myLp);
     },
-    goNext: function () {
+    goNext: function() {
       this.$emit("nextPage");
     }
   },
   computed: {
-    selectedTierImgUrl: function () {
+    selectedTierImgUrl: function() {
       return this.$store.state.tierImgRoot + this.$store.state.myTier + ".png";
     },
-    isHigh: function () {
+    isHigh: function() {
       return this.$store.state.isHigh;
     },
-    myTier: function () {
+    myTier: function() {
       return this.$store.state.myTier;
     },
     /*
      * 천상계 LP는 25점 단위로
      */
 
-    myLp: function () {
+    myLp: function() {
       return this.lpInput * 25;
     },
     animatedLp: function() {
@@ -83,7 +83,7 @@ export default {
       TweenLite.to(this.$data, 0.5, { tweenedLp: newValue });
     }
   }
-}
+};
 </script>
 
 <style scoped>

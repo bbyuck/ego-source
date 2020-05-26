@@ -1,230 +1,222 @@
 <template>
-  <div class="profile_card">  
+  <div class="profile_card">
     <div class="header">
       <div class="header_left">
         <div class="tier_text_tag" v-if="myInfo.isHigh" v-bind:class="myInfo.myTier">
-          {{ myTierTag }} <br> {{ myInfo.myLp }} LP
+          {{ myTierTag }}
+          <br />
+          {{ myInfo.myLp }} LP
         </div>
-        <div class="tier_text_tag" v-if="!myInfo.isHigh" v-bind:class="myInfo.myTier">
-          {{ myTierTag }}{{ myInfo.myTierLev }}
-        </div>
+        <div
+          class="tier_text_tag"
+          v-if="!myInfo.isHigh"
+          v-bind:class="myInfo.myTier"
+        >{{ myTierTag }}{{ myInfo.myTierLev }}</div>
       </div>
-      <div class="ingame_id" v-if="myInfo.myIngameId !== ''">
-        {{ myInfo.myIngameId }}
-      </div>
+      <div class="ingame_id" v-if="myInfo.myIngameId !== ''">{{ myInfo.myIngameId }}</div>
       <div class="empty_ingame_id" v-if="myInfo.myIngameId === ''" v-on:click="goToIngameIdPage">
         <i class="fas fa-plus"></i>
       </div>
     </div>
-   
+
     <div class="content_top" v-bind:class="{content_top_high : myInfo.isHigh}">
-      <div v-bind:class="{profile_card_tier_high_area : myInfo.isHigh, profile_card_tier_area : !myInfo.isHigh}">
-        <img v-bind:src="tierImgUrlRoot + myInfo.myTier + '.png'" alt="">
+      <div
+        v-bind:class="{profile_card_tier_high_area : myInfo.isHigh, profile_card_tier_area : !myInfo.isHigh}"
+      >
+        <img v-bind:src="tierImgUrlRoot + myInfo.myTier + '.png'" alt />
       </div>
       <div class="hexa_area">
         <div class="hexa_top">
-          <img v-bind:src="positionImgUrlRoot + top">
+          <img v-bind:src="positionImgUrlRoot + top" />
         </div>
         <div class="hexa_jg">
-          <img v-bind:src="positionImgUrlRoot + jungle">
+          <img v-bind:src="positionImgUrlRoot + jungle" />
         </div>
         <div class="hexa_mid">
-          <img v-bind:src="positionImgUrlRoot + mid">
+          <img v-bind:src="positionImgUrlRoot + mid" />
         </div>
         <div class="hexa_ad">
-          <img v-bind:src="positionImgUrlRoot + ad">
+          <img v-bind:src="positionImgUrlRoot + ad" />
         </div>
         <div class="hexa_sup">
-          <img v-bind:src="positionImgUrlRoot + support">
+          <img v-bind:src="positionImgUrlRoot + support" />
         </div>
         <div class="hexa_voice">
-          <img v-bind:src="positionImgUrlRoot + voice" alt="">
-        </div>  
+          <img v-bind:src="positionImgUrlRoot + voice" alt />
+        </div>
       </div>
     </div>
 
     <div class="content_mid">
-      
-      <div v-for="(champion, i) in myInfo.myChampions" v-bind:key="champion.koreanName" v-bind:class="{main_champion_row : i === 0, champion_row : i !== 0}">
+      <div
+        v-for="(champion, i) in myInfo.myChampions"
+        v-bind:key="champion.koreanName"
+        v-bind:class="{main_champion_row : i === 0, champion_row : i !== 0}"
+      >
         <div class="row_content">
-          
           <div class="astr_mark" v-if="i === 0">
             <i class="fas fa-star"></i>
           </div>
-          
+
           <div class="champion_name">
-            <div class="kor">
-              {{ champion.koreanName }}
-            </div>
-            <div class="eng">
-              {{ champion.showEngName }}
-            </div>
+            <div class="kor">{{ champion.koreanName }}</div>
+            <div class="eng">{{ champion.showEngName }}</div>
           </div>
           <div class="champion_thumb_container">
             <div class="champion_thumb">
-              <img v-bind:src="championImgUrlRoot + champion.engName + '.png'">
+              <img v-bind:src="championImgUrlRoot + champion.engName + '.png'" />
             </div>
           </div>
         </div>
       </div>
-      
-      <div class="empty_champion_row" v-for="idx in unselectedChampionCount" v-bind:key="idx" v-on:click="goToChampionPage">
+
+      <div
+        class="empty_champion_row"
+        v-for="idx in unselectedChampionCount"
+        v-bind:key="idx"
+        v-on:click="goToChampionPage"
+      >
         <i class="fas fa-plus"></i>
       </div>
-
     </div>
 
-    <div class="content_bottom">
-
-    </div>
-
+    <div class="content_bottom"></div>
   </div>
 </template>
 
 <script>
-
-
 export default {
-  data: function () {
+  data: function() {
     return {
-      tierImgUrlRoot: './src/assets/images/tier/',
-      positionImgUrlRoot: './src/assets/images/position/',
-      championImgUrlRoot: './src/assets/images/champion/'
-    }
+      tierImgUrlRoot: "./src/assets/images/tier/",
+      positionImgUrlRoot: "./src/assets/images/position/",
+      championImgUrlRoot: "./src/assets/images/champion/"
+    };
   },
-  props: ['myInfo'],
+  props: ["myInfo"],
   methods: {
-    goToChampionPage: function () {
+    goToChampionPage: function() {
       this.$emit("goToChampion");
     },
-    goToIngameIdPage: function () {
+    goToIngameIdPage: function() {
       this.$emit("goToIngameId");
     }
   },
   computed: {
-    top: function () {
-      if(this.myInfo.myPosition[0].main) {
-        return 'top_main.png';
-      }
-      else if(this.myInfo.myPosition[0].selected) {
-        return 'top_on.png';
-      }
-      else {
-        return 'top_off.png';
-      }
-    },    
-    jungle: function () {
-      if(this.myInfo.myPosition[1].main) {
-        return 'jungle_main.png';
-      }
-      else if(this.myInfo.myPosition[1].selected) {
-        return 'jungle_on.png';
-      }
-      else {
-        return 'jungle_off.png';
-      }
-    },
-    mid: function () {
-      if(this.myInfo.myPosition[2].main) {
-        return 'mid_main.png';
-      }
-      else if(this.myInfo.myPosition[2].selected) {
-        return 'mid_on.png';
-      }
-      else {
-        return 'mid_off.png';
-      }
-    },
-    ad: function () {
-      if(this.myInfo.myPosition[3].main) {
-        return 'ad_main.png';
-      }
-      else if(this.myInfo.myPosition[3].selected) {
-        return 'ad_on.png';
-      }
-      else {
-        return 'ad_off.png';
-      }
-    },
-    support: function () {
-      if(this.myInfo.myPosition[4].main) {
-        return 'support_main.png';
-      }
-      else if(this.myInfo.myPosition[4].selected) {
-        return 'support_on.png';
-      }
-      else {
-        return 'support_off.png';
-      }
-    },
-    voice: function () {
-      if(this.myInfo.isVoiceOn) {
-        return 'voice_on.png'
+    top: function() {
+      if (this.myInfo.myPosition[0].main) {
+        return "top_main.png";
+      } else if (this.myInfo.myPosition[0].selected) {
+        return "top_on.png";
       } else {
-        return 'voice_off.png'
+        return "top_off.png";
       }
     },
-    hexaAreaWidth: function () {
+    jungle: function() {
+      if (this.myInfo.myPosition[1].main) {
+        return "jungle_main.png";
+      } else if (this.myInfo.myPosition[1].selected) {
+        return "jungle_on.png";
+      } else {
+        return "jungle_off.png";
+      }
+    },
+    mid: function() {
+      if (this.myInfo.myPosition[2].main) {
+        return "mid_main.png";
+      } else if (this.myInfo.myPosition[2].selected) {
+        return "mid_on.png";
+      } else {
+        return "mid_off.png";
+      }
+    },
+    ad: function() {
+      if (this.myInfo.myPosition[3].main) {
+        return "ad_main.png";
+      } else if (this.myInfo.myPosition[3].selected) {
+        return "ad_on.png";
+      } else {
+        return "ad_off.png";
+      }
+    },
+    support: function() {
+      if (this.myInfo.myPosition[4].main) {
+        return "support_main.png";
+      } else if (this.myInfo.myPosition[4].selected) {
+        return "support_on.png";
+      } else {
+        return "support_off.png";
+      }
+    },
+    voice: function() {
+      if (this.myInfo.isVoiceOn) {
+        return "voice_on.png";
+      } else {
+        return "voice_off.png";
+      }
+    },
+    hexaAreaWidth: function() {
       return window.innerWidth * 0.8 * 0.55;
     },
-    unselectedChampionCount: function () {
+    unselectedChampionCount: function() {
       return 3 - this.myInfo.myChampions.length;
     },
-    myTierTag: function () {
-      let tag = '';
+    myTierTag: function() {
+      let tag = "";
       switch (this.myInfo.myTier) {
-      case 'Challenger':
-        tag = 'C1';
-        break;
-      case 'GrandMaster':
-        tag = 'GM1';
-        break;
-      case 'Master':
-        tag = 'M1';
-        break;
-      case 'Diamond':
-        tag = 'D';
-        break;
-      case 'Platinum':
-        tag = 'P';
-        break;
-      case 'Gold':
-        tag = 'G';
-        break;
-      case 'Silver':
-        tag = 'S';
-        break;
-      case 'Bronze':
-        tag = 'B';
-        break;
-      case 'Iron':
-        tag = 'I';
-        break;
-      default:
-        break;
+        case "Challenger":
+          tag = "C1";
+          break;
+        case "GrandMaster":
+          tag = "GM1";
+          break;
+        case "Master":
+          tag = "M1";
+          break;
+        case "Diamond":
+          tag = "D";
+          break;
+        case "Platinum":
+          tag = "P";
+          break;
+        case "Gold":
+          tag = "G";
+          break;
+        case "Silver":
+          tag = "S";
+          break;
+        case "Bronze":
+          tag = "B";
+          break;
+        case "Iron":
+          tag = "I";
+          break;
+        default:
+          break;
       }
       return tag;
     }
   }
-}
+};
 </script>
 
 <style>
 .profile_card {
   width: 320px;
   height: 530px;
-  background-color:white;
+  background-color: white;
   border-radius: 15px;
   display: block;
   margin-left: auto;
   margin-right: auto;
 }
 
-.header, .under_header {
+.header,
+.under_header {
   width: 90%;
   display: block;
   height: 20px;
-  font-size: 20px;  
+  font-size: 20px;
   margin-left: auto;
   margin-right: auto;
   padding-bottom: 10px;
@@ -261,7 +253,6 @@ export default {
   color: white;
 }
 
-
 .Iron {
   background-color: darkgray;
   width: 28px;
@@ -295,7 +286,6 @@ export default {
   background-color: red;
   font-size: 10px;
   width: 45px;
-
 }
 .Challenger {
   background-color: skyblue;
@@ -312,7 +302,6 @@ export default {
   margin-right: auto;
 }
 
-
 .content_top {
   height: 120px;
 }
@@ -321,7 +310,8 @@ export default {
   margin-top: 10px;
 }
 
-.profile_card_tier_area, .profile_card_tier_high_area {
+.profile_card_tier_area,
+.profile_card_tier_high_area {
   width: 30%;
   position: relative;
   display: inline-block;
@@ -331,7 +321,8 @@ export default {
   margin-top: 10px;
 }
 
-.profile_card_tier_area > img, .profile_card_tier_high_area > img {
+.profile_card_tier_area > img,
+.profile_card_tier_high_area > img {
   width: 100%;
 }
 
@@ -343,13 +334,23 @@ export default {
   top: 0;
 }
 
-.hexa_top, .hexa_jg, .hexa_mid, .hexa_ad, .hexa_sup, .hexa_voice {
+.hexa_top,
+.hexa_jg,
+.hexa_mid,
+.hexa_ad,
+.hexa_sup,
+.hexa_voice {
   width: 50px;
   position: absolute;
   display: inline-block;
 }
 
-.hexa_top > img, .hexa_jg > img, .hexa_mid > img, .hexa_ad > img, .hexa_sup > img, .hexa_voice > img {
+.hexa_top > img,
+.hexa_jg > img,
+.hexa_mid > img,
+.hexa_ad > img,
+.hexa_sup > img,
+.hexa_voice > img {
   width: 100%;
 }
 
@@ -428,7 +429,6 @@ export default {
   left: 12%;
 }
 
-
 .eng {
   color: #c6bcc1;
   font-size: 10px;
@@ -448,7 +448,7 @@ export default {
 }
 
 .champion_thumb > img {
-  position:absolute;
+  position: absolute;
 }
 
 .champion_row > .row_content > .champion_thumb_container > .champion_thumb {
@@ -456,13 +456,21 @@ export default {
   height: 35px;
 }
 
-.champion_row > .row_content > .champion_thumb_container > .champion_thumb > img {
+.champion_row
+  > .row_content
+  > .champion_thumb_container
+  > .champion_thumb
+  > img {
   width: 70px;
   top: -40%;
   left: -20%;
 }
 
-.main_champion_row > .row_content > .champion_thumb_container > .champion_thumb > img {
+.main_champion_row
+  > .row_content
+  > .champion_thumb_container
+  > .champion_thumb
+  > img {
   width: 80px;
   top: -30%;
   left: -30%;
@@ -482,5 +490,4 @@ export default {
   height: 80px;
   box-shadow: 2px 2px 2px 2px #e4e4e4;
 }
-
 </style>

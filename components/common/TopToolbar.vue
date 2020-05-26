@@ -1,14 +1,22 @@
 <template>
   <v-ons-toolbar>
-    <div class="left">
-    </div>
+    <div class="left"></div>
     <div class="center">
-      <ons-toolbar-button v-show="!ingameIdChanging" v-on:click="startChange" class="ingame_id_show">
-        {{ this.$store.state.ingameId }}
-      </ons-toolbar-button>
+      <ons-toolbar-button
+        v-show="!ingameIdChanging"
+        v-on:click="startChange"
+        class="ingame_id_show"
+      >{{ this.$store.state.ingameId }}</ons-toolbar-button>
       <span v-show="ingameIdChanging">
         <div class="idChangeBox shadow">
-          <input type="text" ref="idInput" class="idInput" v-model="changedIngameId" v-on:keyup.enter="changeIngameId" placeholder="변경할 아이디 입력">
+          <input
+            type="text"
+            ref="idInput"
+            class="idInput"
+            v-model="changedIngameId"
+            v-on:keyup.enter="changeIngameId"
+            placeholder="변경할 아이디 입력"
+          />
           <span class="change_btn" v-on:click="changeIngameId">
             <i class="fas fa-edit"></i>
           </span>
@@ -20,48 +28,47 @@
         <i v-if="isVoiceOn" class="voice_on fas fa-microphone"></i>
         <i v-if="!isVoiceOn" class="voice_off fas fa-microphone-slash"></i>
       </span>
-
     </div>
   </v-ons-toolbar>
 </template>
 
 <script>
 export default {
-  data: function () {
+  data: function() {
     return {
       ingameIdChanging: false,
-      changedIngameId: '',
+      changedIngameId: "",
       voidInputAlertVisible: false
-    }
+    };
   },
   methods: {
-    startChange: function () {
+    startChange: function() {
       this.ingameIdChanging = true;
       this.$refs.idInput.blur();
     },
-    changeIngameId: function () {
-      if (this.changedIngameId === ''){
+    changeIngameId: function() {
+      if (this.changedIngameId === "") {
         this.ingameIdChanging = false;
       } else {
-        this.$store.commit('updateIngameId', this.changedIngameId);
+        this.$store.commit("updateIngameId", this.changedIngameId);
         this.ingameIdChanging = false;
-        this.changedIngameId = '';
+        this.changedIngameId = "";
       }
       this.$refs.idInput.blur();
     },
-    voiceToggle: function () {
-      this.$store.commit('toggleVoice');
+    voiceToggle: function() {
+      this.$store.commit("toggleVoice");
     }
   },
   computed: {
-    currentIngameId: function () {
+    currentIngameId: function() {
       return this.$store.state.ingameId;
     },
-    isVoiceOn: function () {
+    isVoiceOn: function() {
       return this.$store.state.isVoiceOn;
     }
   }
-}
+};
 </script>
 
 <style scoped>
@@ -104,11 +111,11 @@ export default {
 }
 
 .voice_on {
-  color:chartreuse;
+  color: chartreuse;
 }
 
 .voice_off {
-  color:red;
+  color: red;
 }
 
 .ingame_id_show {
@@ -120,5 +127,4 @@ export default {
 .change_btn {
   color: black;
 }
-
 </style>

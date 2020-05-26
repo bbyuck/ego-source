@@ -5,8 +5,8 @@ const instance = axios.create({
 });
 
 function sendAuthInfo(userData) {
-    window.alert(JSON.stringify(userData));
-    return instance.post('/getKakaoAuth', userData);
+  window.alert(JSON.stringify(userData));
+  return instance.post('/getKakaoAuth', userData);
 }
 
 export { sendAuthInfo };

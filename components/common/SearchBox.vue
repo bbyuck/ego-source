@@ -1,6 +1,12 @@
 <template>
   <div class="input_box">
-    <input type="text" class="background_input" placeholder="챔피언을 검색해주세요." v-on:input="typing" ref="inputBox">
+    <input
+      type="text"
+      class="background_input"
+      placeholder="챔피언을 검색해주세요."
+      v-on:input="typing"
+      ref="inputBox"
+    />
     <div class="search_btn" v-on:click="searchBarBtn">
       <i class="fas fa-search" v-show="bindInput === ''"></i>
       <i class="fas fa-times" v-show="bindInput !== ''"></i>
@@ -10,26 +16,24 @@
 
 <script>
 export default {
-  props: ['bindInput'],
+  props: ["bindInput"],
   methods: {
     typing: function(e) {
       this.championInput = e.target.value;
     },
-    searchBarBtn: function () {
-      if(this.championInput === '') {
+    searchBarBtn: function() {
+      if (this.championInput === "") {
         this.$refs.inputBox.focus();
-      }
-      else {
-        this.championInput = '';
-        this.$refs.inputBox.value = '';
+      } else {
+        this.championInput = "";
+        this.$refs.inputBox.value = "";
       }
     }
   }
-}
+};
 </script>
 
 <style>
-
 .input_box {
   width: 80%;
   height: 40px;

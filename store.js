@@ -1,7 +1,7 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import Vue from "vue";
+import Vuex from "vuex";
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
@@ -14,7 +14,7 @@ export default new Vuex.Store({
     lp: 0,
     mainPositionIndex: -1,
     myPosition: [
-      { position: "Top", selected: false ,main: false },
+      { position: "Top", selected: false, main: false },
       { position: "Jungle", selected: false, main: false },
       { position: "Mid", selected: false, main: false },
       { position: "AD Carry", selected: false, main: false },
@@ -32,7 +32,7 @@ export default new Vuex.Store({
       state.pageCompleted = payload;
     },
     inputIngameId: function (state, payload) {
-      if (payload !== '') {
+      if (payload !== "") {
         state.ingameId = payload;
       }
     },
@@ -74,9 +74,9 @@ export default new Vuex.Store({
     },
     tierSelect: function (state, payload) {
       state.myTier = payload;
-      if (payload === "Challenger" || payload === "GrandMaster" || payload === "Master"){
+      if (payload === "Challenger" || payload === "GrandMaster" || payload === "Master") {
         state.isHigh = true;
-      } else{
+      } else {
         state.isHigh = false;
       };
     },
@@ -122,18 +122,18 @@ export default new Vuex.Store({
     },
     makeProfileCard: function (state) {
       let myProfileData = {
-        "myIngameId" : state.ingameId,
-        "myIsVoiceOn" : state.isVoiceOn,
-        "myTier" : state.myTier,
-        "myIsHigh" : state.isHigh,
-        "myLp" : state.lp,
-        "myTierLev" : state.tierLev,
-        "myPosition" : state.myPosition,
-        "myMainPositionIdx" : state.mainPositionIndex,
-        "myChampions" : state.selectedChampions
+        "myIngameId": state.ingameId,
+        "myIsVoiceOn": state.isVoiceOn,
+        "myTier": state.myTier,
+        "myIsHigh": state.isHigh,
+        "myLp": state.lp,
+        "myTierLev": state.tierLev,
+        "myPosition": state.myPosition,
+        "myMainPositionIdx": state.mainPositionIndex,
+        "myChampions": state.selectedChampions
       };
-      
-      localStorage.setItem('preset1', JSON.stringify(myProfileData));
+
+      localStorage.setItem("preset1", JSON.stringify(myProfileData));
     },
     deleteProfile: function (state) {
       localStorage.removeItem("preset1");
@@ -153,11 +153,11 @@ export default new Vuex.Store({
     getPositionArr: function (state) {
       let arr = [];
       for (let i = 0; i < 5; i++) {
-        if(state.myPosition[i].selected) {
+        if (state.myPosition[i].selected) {
           arr.push(state.myPosition[i]);
         }
       }
       return arr;
     },
   }
-})
+});
